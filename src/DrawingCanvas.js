@@ -18,23 +18,28 @@ class DrawingCanvas extends React.Component {
             ctx.lineWidth = 22;
             ctx.lineCap = "round";
             ctx.strokeStyle = 'red';
-
         }
       }
 
-    draw(e) {
+    draw(e, canvas) {
         // if (!painting) return;
         // ctx.lineTo(e.clientX - offsetLeft, e.clientY - offsetTop);
         // ctx.stroke();
         // ctx.beginPath();
         // ctx.moveTo(e.clientX - offsetLeft, e.clientY - offsetTop);
+        let ctx = canvas.getContext("2d");
+        ctx.lineTo(e.clientX, e.clientY);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(e.clientX, e.clientY);
+
     }
 
     render() {
         return (
             <div className="tc">
                 <canvas className="DrawingCanvas" ref="myCanvas" width={this.props.width} height={this.props.height} 
-                onClick={(e) => this.draw(e)}>
+                onClick={(e) => this.draw(e, this.refs.myCanvas)}>
 
                 </canvas>
                 {/* <p>{props.width + props.height}</p> */}

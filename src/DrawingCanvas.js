@@ -16,11 +16,6 @@ class DrawingCanvas extends React.Component {
         const canvas = this.refs.myCanvas
         const ctx = canvas.getContext("2d")
 
-        ctx.onload = () => {
-            ctx.lineWidth = 22;
-            ctx.lineCap = "round";
-            ctx.strokeStyle = 'red';
-        }
       }
 
     draw(e, canvas) {
@@ -28,6 +23,9 @@ class DrawingCanvas extends React.Component {
         let offsetLeft = canvas.offsetLeft - window.scrollX;
         let offsetTop = canvas.offsetTop - window.scrollY;
         let ctx = canvas.getContext("2d");
+        ctx.lineWidth = 100;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = 'red';
         ctx.lineTo(e.clientX - offsetLeft, e.clientY - offsetTop);
         ctx.stroke();
         ctx.beginPath();
@@ -42,7 +40,8 @@ class DrawingCanvas extends React.Component {
         return (
             <div className="tc">
                 <canvas className="DrawingCanvas" ref="myCanvas" width={this.props.width} height={this.props.height} 
-                onMouseDown={(e) => this.startPosition(e, this.refs.myCanvas)} onMouseMove={(e) => this.draw(e, this.refs.myCanvas)}>
+                onMouseDown={(e) => this.startPosition(e, this.refs.myCanvas)}
+                onMouseMove={(e) => this.draw(e, this.refs.myCanvas)}>
 
                 </canvas>
                 {/* <p>{props.width + props.height}</p> */}

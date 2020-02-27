@@ -11,12 +11,6 @@ class DrawingCanvas extends React.Component {
         this.painting = false;
     }
 
-    
-
-    componentDidMount() {
-    
-      }
-
     draw(e, canvas) {
         if (!this.painting) return;
         let offsetLeft = canvas.offsetLeft - window.scrollX;
@@ -49,9 +43,7 @@ class DrawingCanvas extends React.Component {
                 onMouseDown={(e) => this.startPosition(e, this.refs.myCanvas)}
                 onMouseMove={(e) => this.draw(e, this.refs.myCanvas)}
                 onMouseUp={() => this.finishedPosition(this.refs.myCanvas)}>
-
                 </canvas>
-                {/* <p>{props.width + props.height}</p> */}
             </div>
         );
     }

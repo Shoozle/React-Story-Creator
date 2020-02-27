@@ -7,19 +7,18 @@ class DrawingCanvas extends React.Component {
         super(props);
         this.state = {
             value: null,
-        }; 
+        };
+        this.painting = false;
     }
 
     
 
     componentDidMount() {
-        const canvas = this.refs.myCanvas
-        const ctx = canvas.getContext("2d")
-
+    
       }
 
     draw(e, canvas) {
-        // if (!painting) return;
+        if (!this.painting) return;
         let offsetLeft = canvas.offsetLeft - window.scrollX;
         let offsetTop = canvas.offsetTop - window.scrollY;
         let ctx = canvas.getContext("2d");
@@ -33,7 +32,14 @@ class DrawingCanvas extends React.Component {
     }
 
     startPosition(e, canvas){
+        this.painting = true;
         this.draw(e, canvas);    //Adding the event here draws it on click to create dots
+    }
+
+    finishedPosition(canvas){
+        this.painting = false;
+        let ctx = canvas.getContext("2d");
+        ctx.beginPath();
     }
 
     render() {
@@ -41,7 +47,8 @@ class DrawingCanvas extends React.Component {
             <div className="tc">
                 <canvas className="DrawingCanvas" ref="myCanvas" width={this.props.width} height={this.props.height} 
                 onMouseDown={(e) => this.startPosition(e, this.refs.myCanvas)}
-                onMouseMove={(e) => this.draw(e, this.refs.myCanvas)}>
+                onMouseMove={(e) => this.draw(e, this.refs.myCanvas)}
+                onMouseUp={() => this.finishedPosition(this.refs.myCanvas)}>
 
                 </canvas>
                 {/* <p>{props.width + props.height}</p> */}

@@ -5,9 +5,7 @@ import './DrawingCanvas.css';
 class DrawingCanvas extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            value: null,
-        };
+        this.state = { drawings: []};
         this.painting = false;
     }
 
@@ -16,9 +14,9 @@ class DrawingCanvas extends React.Component {
         let offsetLeft = canvas.offsetLeft - window.scrollX;
         let offsetTop = canvas.offsetTop - window.scrollY;
         let ctx = canvas.getContext("2d");
-        ctx.lineWidth = 100;
+        ctx.lineWidth = 25;
         ctx.lineCap = "round";
-        ctx.strokeStyle = 'red';
+        ctx.strokeStyle = 'black';
         ctx.lineTo(e.clientX - offsetLeft, e.clientY - offsetTop);
         ctx.stroke();
         ctx.beginPath();
@@ -34,6 +32,12 @@ class DrawingCanvas extends React.Component {
         this.painting = false;
         let ctx = canvas.getContext("2d");
         ctx.beginPath();
+        this.state.drawings.push(canvas.toDataURL());
+    }
+
+    componentDidMount(){
+        this.state.drawings.push("hey");
+        console.log(this.state.drawings);
     }
 
     render() {
@@ -42,9 +46,12 @@ class DrawingCanvas extends React.Component {
                 <canvas className="DrawingCanvas" ref="myCanvas" width={this.props.width} height={this.props.height} 
                 onMouseDown={(e) => this.startPosition(e, this.refs.myCanvas)}
                 onMouseMove={(e) => this.draw(e, this.refs.myCanvas)}
-                onMouseUp={() => this.finishedPosition(this.refs.myCanvas)}>
-                </canvas>
+                onMouseUp={() => this.finishedPosition(this.refs.myCanvas)}
+                ></canvas>
+                <button>Undo</button>
+                <button>Redo</button>
             </div>
+            
         );
     }
 }

@@ -5,7 +5,7 @@ import DrawingCanvas from './DrawingCanvas';
 import * as serviceWorker from './serviceWorker';
 import 'tachyons';
 
-ReactDOM.render(<DrawingCanvas height={'1000rem'} width={'1000rem'}/>, document.getElementById('root'));
+ReactDOM.render(<DrawingCanvas height={'400rem'} width={'400rem'}/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

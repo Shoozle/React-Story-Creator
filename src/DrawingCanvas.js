@@ -5,7 +5,7 @@ import './DrawingCanvas.css';
 class DrawingCanvas extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { drawings: []};
+        this.history = [];
         this.painting = false;
     }
 
@@ -35,9 +35,18 @@ class DrawingCanvas extends React.Component {
         this.state.drawings.push(canvas.toDataURL());
     }
 
+    undo(){
+
+    }
+    
+    redo(){
+
+    }
+
     componentDidMount(){
-        this.state.drawings.push("hey");
-        console.log(this.state.drawings);
+        this.history.push("hey");
+        this.history.push("hey");
+        console.log(this.history);
     }
 
     render() {
@@ -48,8 +57,12 @@ class DrawingCanvas extends React.Component {
                 onMouseMove={(e) => this.draw(e, this.refs.myCanvas)}
                 onMouseUp={() => this.finishedPosition(this.refs.myCanvas)}
                 ></canvas>
-                <button>Undo</button>
-                <button>Redo</button>
+                <button
+                onClick={() => this.undo()}
+                >Undo</button>
+                <button
+                onClick={() => this.redo()}
+                >Redo</button>
             </div>
             
         );

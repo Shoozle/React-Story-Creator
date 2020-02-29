@@ -5,6 +5,7 @@ import './DrawingCanvas.css';
 class DrawingCanvas extends React.Component {
     constructor(props) {
         super(props);
+        this.present = 0;
         this.history = [];
         this.painting = false;
         this.canvas = React.createRef();
@@ -12,10 +13,9 @@ class DrawingCanvas extends React.Component {
 
     draw(e) {
         if (!this.painting) return;
-        let offsetLeft = this.canvas.current.offsetLeft - window.scrollX;
-        let offsetTop = this.canvas.current.offsetTop - window.scrollY;
-        console.log(offsetLeft);
         let canvas = this.canvas.current;
+        let offsetLeft = canvas.offsetLeft - window.scrollX;
+        let offsetTop = canvas.offsetTop - window.scrollY;
         let ctx = canvas.getContext("2d");
         ctx.lineWidth = 25;
         ctx.lineCap = "round";
@@ -37,6 +37,7 @@ class DrawingCanvas extends React.Component {
         let ctx = canvas.getContext("2d");
         ctx.beginPath();
         this.history.push(canvas.toDataURL());
+        console.log(this.history);
     }
 
     undo(){
@@ -48,8 +49,7 @@ class DrawingCanvas extends React.Component {
     }
 
     componentDidMount(){
-        this.history.push(new Image());
-        console.log(this.history);
+        //
     }
 
     render() {

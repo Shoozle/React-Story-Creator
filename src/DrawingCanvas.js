@@ -7,13 +7,14 @@ class DrawingCanvas extends React.Component {
         super(props);
         this.history = [];
         this.painting = false;
+        this.canvas = React.createRef();
     }
 
-    draw(e, canvas) {
+    draw(e) {
         if (!this.painting) return;
-        let offsetLeft = canvas.offsetLeft - window.scrollX;
-        let offsetTop = canvas.offsetTop - window.scrollY;
-        let ctx = canvas.getContext("2d");
+        let offsetLeft = this.canvas.offsetLeft - window.scrollX;
+        let offsetTop = this.canvas.offsetTop - window.scrollY;
+        let ctx = this.canvas.getContext("2d");
         ctx.lineWidth = 25;
         ctx.lineCap = "round";
         ctx.strokeStyle = 'black';
@@ -25,7 +26,7 @@ class DrawingCanvas extends React.Component {
 
     startPosition(e, canvas){
         this.painting = true;
-        this.draw(e, canvas);    //Adding the event here draws it on click to create dots
+        this.draw(e);    //Adding the event here draws it on click to create dots
     }
 
     finishedPosition(canvas){
@@ -44,18 +45,17 @@ class DrawingCanvas extends React.Component {
     }
 
     componentDidMount(){
-        this.history.push("hey");
-        this.history.push("hey");
+        this.history.push(new Image());
         console.log(this.history);
     }
 
     render() {
         return (
             <div className="tc">
-                <canvas className="DrawingCanvas" ref="myCanvas" width={this.props.width} height={this.props.height} 
-                onMouseDown={(e) => this.startPosition(e, this.refs.myCanvas)}
-                onMouseMove={(e) => this.draw(e, this.refs.myCanvas)}
-                onMouseUp={() => this.finishedPosition(this.refs.myCanvas)}
+                <canvas className="DrawingCanvas" ref={this.canvas} width={this.props.width} height={this.props.height} 
+                onMouseDown={(e) => this.startPosition(e, this.canvas)}
+                onMouseMove={(e) => this.draw(e, this.canvas)}
+                onMouseUp={() => this.finishedPosition(this.canvas)}
                 ></canvas>
                 <button
                 onClick={() => this.undo()}

@@ -12,9 +12,11 @@ class DrawingCanvas extends React.Component {
 
     draw(e) {
         if (!this.painting) return;
-        let offsetLeft = this.canvas.offsetLeft - window.scrollX;
-        let offsetTop = this.canvas.offsetTop - window.scrollY;
-        let ctx = this.canvas.getContext("2d");
+        let offsetLeft = this.canvas.current.offsetLeft - window.scrollX;
+        let offsetTop = this.canvas.current.offsetTop - window.scrollY;
+        console.log(offsetLeft);
+        let canvas = this.canvas.current;
+        let ctx = canvas.getContext("2d");
         ctx.lineWidth = 25;
         ctx.lineCap = "round";
         ctx.strokeStyle = 'black';
@@ -24,16 +26,17 @@ class DrawingCanvas extends React.Component {
         ctx.moveTo(e.clientX - offsetLeft, e.clientY - offsetTop);
     }
 
-    startPosition(e, canvas){
+    startPosition(e){
         this.painting = true;
         this.draw(e);    //Adding the event here draws it on click to create dots
     }
 
-    finishedPosition(canvas){
+    finishedPosition(){
         this.painting = false;
+        let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");
         ctx.beginPath();
-        this.state.drawings.push(canvas.toDataURL());
+        this.history.push(canvas.toDataURL());
     }
 
     undo(){

@@ -56,9 +56,9 @@ class DrawingCanvas extends React.Component {
         return (
             <div className="tc">
                 <canvas className="DrawingCanvas" ref={this.canvas} width={this.props.width} height={this.props.height} 
-                onMouseDown={(e) => this.startPosition(e, this.canvas)}
-                onMouseMove={(e) => this.draw(e, this.canvas)}
-                onMouseUp={() => this.finishedPosition(this.canvas)}
+                onMouseDown={(e) => this.startPosition(e)}
+                onMouseMove={(e) => this.draw(e)}
+                onMouseUp={() => this.finishedPosition()}
                 ></canvas>
                 <button
                 onClick={() => this.undo()}

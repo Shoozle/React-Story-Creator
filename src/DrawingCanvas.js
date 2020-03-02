@@ -11,7 +11,7 @@ class DrawingCanvas extends React.Component {
         this.painting = false;
         this.canvas = React.createRef();
         this.state = {
-            background: '#fff',
+            background: '#000',
           };
     }
 

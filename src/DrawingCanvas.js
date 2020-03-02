@@ -1,5 +1,6 @@
 import React from 'react';
 import './DrawingCanvas.css';
+import { ChromePicker } from 'react-color';
 
 
 class DrawingCanvas extends React.Component {
@@ -9,6 +10,7 @@ class DrawingCanvas extends React.Component {
         this.history = [];
         this.painting = false;
         this.canvas = React.createRef();
+        this.reactColor = require("react-color");
     }
 
     draw(e) {
@@ -66,6 +68,7 @@ class DrawingCanvas extends React.Component {
                 <button
                 onClick={() => this.redo()}
                 >Redo</button>
+                <ChromePicker/>
             </div>
             
         );

@@ -10,8 +10,14 @@ class DrawingCanvas extends React.Component {
         this.history = [];
         this.painting = false;
         this.canvas = React.createRef();
-        this.reactColor = require("react-color");
+        this.state = {
+            background: '#fff',
+          };
     }
+
+    handleChangeComplete = (color) => {
+        this.setState({ background: color.hex });
+      };
 
     draw(e) {
         if (!this.painting) return;
@@ -21,7 +27,7 @@ class DrawingCanvas extends React.Component {
         let ctx = canvas.getContext("2d");
         ctx.lineWidth = 25;
         ctx.lineCap = "round";
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = this.state.background;
         ctx.lineTo(e.clientX - offsetLeft, e.clientY - offsetTop);
         ctx.stroke();
         ctx.beginPath();
@@ -68,7 +74,10 @@ class DrawingCanvas extends React.Component {
                 <button
                 onClick={() => this.redo()}
                 >Redo</button>
-                <ChromePicker/>
+                <ChromePicker 
+                    color={ this.state.background }
+                    onChange={ this.handleChangeComplete}
+                />
             </div>
             
         );

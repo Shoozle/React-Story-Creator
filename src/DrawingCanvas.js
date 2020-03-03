@@ -12,6 +12,7 @@ class DrawingCanvas extends React.Component {
         this.canvas = React.createRef();
         this.state = {
             color: '#000',
+            history: [],
           };
     }
 
@@ -25,9 +26,10 @@ class DrawingCanvas extends React.Component {
         let offsetLeft = canvas.offsetLeft - window.scrollX;
         let offsetTop = canvas.offsetTop - window.scrollY;
         let ctx = canvas.getContext("2d");
+        
         ctx.lineWidth = 25;
         ctx.lineCap = "round";
-        ctx.strokeStyle = this.state.background;
+        ctx.strokeStyle = this.state.color;
         ctx.lineTo(e.clientX - offsetLeft, e.clientY - offsetTop);
         ctx.stroke();
         ctx.beginPath();
@@ -37,6 +39,7 @@ class DrawingCanvas extends React.Component {
     startPosition(e){
         this.painting = true;
         this.draw(e);    //Adding the event here draws it on click to create dots
+        this.history.splice(this.present);
     }
 
     finishedPosition(){
@@ -46,10 +49,23 @@ class DrawingCanvas extends React.Component {
         ctx.beginPath();
         this.history.push(canvas.toDataURL());
         console.log(this.history);
+        this.present++;
     }
 
     undo(){
-
+        if (this.present > 0)
+        {
+            console.log(this.present);
+            this.present--;
+            let canvas = this.canvas.current;
+            let ctx = canvas.getContext("2d");
+            let img = new Image();
+            img.src = this.history[this.present];
+            console.log(this.history[this.present]);
+            img.onload = () => { ctx.drawImage(img, 0, 0)};
+        }
+        
+        
     }
     
     redo(){
@@ -57,7 +73,10 @@ class DrawingCanvas extends React.Component {
     }
 
     componentDidMount(){
-        //
+        //Initial fill
+        let canvas = this.canvas.current;
+        let ctx = canvas.getContext("2d");
+        ctx.fillRect(0, 0, 1000, 1000)
     }
 
     render() {
@@ -75,7 +94,7 @@ class DrawingCanvas extends React.Component {
                 onClick={() => this.redo()}
                 >Redo</button>
                 <ChromePicker 
-                    color={ this.state.background }
+                    color={ this.state.color }
                     onChange={ this.handleChangeComplete}
                 />
             </div>

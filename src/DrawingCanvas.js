@@ -11,12 +11,12 @@ class DrawingCanvas extends React.Component {
         this.painting = false;
         this.canvas = React.createRef();
         this.state = {
-            background: '#000',
+            color: '#000',
           };
     }
 
     handleChangeComplete = (color) => {
-        this.setState({ background: color.hex });
+        this.setState({ color: color.hex });
       };
 
     draw(e) {

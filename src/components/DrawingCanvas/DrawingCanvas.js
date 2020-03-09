@@ -1,7 +1,5 @@
 import React from 'react';
 import './DrawingCanvas.css';
-import { ChromePicker } from 'react-color';
-
 
 class DrawingCanvas extends React.Component {
     constructor(props) {
@@ -92,12 +90,7 @@ class DrawingCanvas extends React.Component {
                 <button
                 onClick={() => this.redo()}
                 >Redo</button>
-                <ChromePicker 
-                    color={ this.state.color }
-                    onChange={ this.handleChangeComplete}
-                />
             </div>
-            
         );
     }
 }

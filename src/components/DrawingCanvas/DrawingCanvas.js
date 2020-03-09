@@ -25,8 +25,7 @@ class DrawingCanvas extends React.Component {
         let canvas = this.canvas.current;
         let offsetLeft = canvas.offsetLeft - window.scrollX;
         let offsetTop = canvas.offsetTop - window.scrollY;
-        let ctx = canvas.getContext("2d");
-        
+        let ctx = canvas.getContext("2d");    
         ctx.lineWidth = 25;
         ctx.lineCap = "round";
         ctx.strokeStyle = this.state.color;

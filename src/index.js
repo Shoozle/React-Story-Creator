@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import DrawingCanvas from './DrawingCanvas';
+import DrawingCanvas from './components/DrawingCanvas/DrawingCanvas';
 import * as serviceWorker from './serviceWorker';
 import 'tachyons';
 

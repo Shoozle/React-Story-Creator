@@ -9,14 +9,13 @@ class DrawingCanvas extends React.Component {
         this.painting = false;
         this.canvas = React.createRef();
         this.state = {
-            color: '#000',
             history: [],
           };
     }
 
-    handleChangeComplete = (color) => {
-        this.setState({ color: color.hex });
-      };
+    // handleChangeComplete = (color) => {
+    //     this.setState({ color: color.hex });
+    //   };
 
     draw(e) {
         if (!this.painting) return;
@@ -26,7 +25,7 @@ class DrawingCanvas extends React.Component {
         let ctx = canvas.getContext("2d");    
         ctx.lineWidth = 25;
         ctx.lineCap = "round";
-        ctx.strokeStyle = this.state.color;
+        ctx.strokeStyle = "black";
         ctx.lineTo(e.clientX - offsetLeft, e.clientY - offsetTop);
         ctx.stroke();
         ctx.beginPath();
@@ -73,7 +72,8 @@ class DrawingCanvas extends React.Component {
         //Initial fill
         let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");
-        ctx.fillRect(0, 0, 1000, 1000)
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, 9999, 9999);
     }
 
     render() {

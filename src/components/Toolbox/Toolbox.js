@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { ChromePicker } from 'react-color';
 
-const Toolbox = ({onChangeBrushColour}) => {
-    return (
-        <div>
-            <ChromePicker
-            onChangeComplete={onChangeBrushColour} />
-        </div>
-    );
+class Toolbox extends Component {
+    constructor() {
+        super();
+        this.state = {
+            color: '000',
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <ChromePicker />
+            </div>
+        );
+    }
 }
 
 export default Toolbox;

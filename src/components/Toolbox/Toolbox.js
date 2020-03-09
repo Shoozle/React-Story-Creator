@@ -1,10 +1,11 @@
 import React from 'react';
 import { ChromePicker } from 'react-color';
 
-const Toolbox = () => {
+const Toolbox = ({onChangeBrushColour}) => {
     return (
         <div>
-            <ChromePicker />
+            <ChromePicker
+            onChangeComplete={onChangeBrushColour} />
         </div>
     );
 }

@@ -11,6 +11,10 @@ class App extends Component {
       }
     }
 
+    onBrushColour = () => {
+        
+    }
+
     render() {
         return (
           <div className="App">

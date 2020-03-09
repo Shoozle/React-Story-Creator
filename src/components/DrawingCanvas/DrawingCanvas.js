@@ -5,13 +5,18 @@ class DrawingCanvas extends React.Component {
     constructor(props) {
         super(props);
         this.present = 0;
-        this.history = [];
         this.painting = false;
         this.canvas = React.createRef();
         this.state = {
+            color: "white",
             history: [],
-          };
+        }
     }
+
+    //State is similar to props, but it is private and fully controlled by the component.
+    //In a React component, props are variables passed to it by its parent component. State on the other hand is still variables, but directly initialized and managed by the component.
+    //Props should never be changed in a child component, so if there’s something going on that alters some variable, that variable should belong to the component state.
+
 
     // handleChangeComplete = (color) => {
     //     this.setState({ color: color.hex });
@@ -35,7 +40,7 @@ class DrawingCanvas extends React.Component {
     startPosition(e){
         this.painting = true;
         this.draw(e);    //Adding the event here draws it on click to create dots
-        this.history.splice(this.present);
+        this.state.history.splice(this.present);
     }
 
     finishedPosition(){
@@ -43,8 +48,8 @@ class DrawingCanvas extends React.Component {
         let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");
         ctx.beginPath();
-        this.history.push(canvas.toDataURL());
-        console.log(this.history);
+        this.state.history.push(canvas.toDataURL());
+        console.log(this.state.history);
         this.present++;
     }
 
@@ -56,12 +61,10 @@ class DrawingCanvas extends React.Component {
             let canvas = this.canvas.current;
             let ctx = canvas.getContext("2d");
             let img = new Image();
-            img.src = this.history[this.present];
-            console.log(this.history[this.present]);
+            img.src = this.state.history[this.present];
+            console.log(this.state.history[this.present]);
             img.onload = () => { ctx.drawImage(img, 0, 0)};
         }
-        
-        
     }
     
     redo(){
@@ -73,7 +76,9 @@ class DrawingCanvas extends React.Component {
         let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");
         ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, 9999, 9999);
+        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.state.history.push(canvas.toDataURL());
+        console.log(this.state.history);
     }
 
     render() {

@@ -7,13 +7,8 @@ import './App.css';
 class App extends Component {
     constructor() {
       super();
-      this.state = {
-      }
     }
 
-    onBrushColour = () => {
-        
-    }
 
     render() {
         return (

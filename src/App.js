@@ -7,13 +7,15 @@ import './App.css';
 class App extends Component {
     constructor() {
       super();
+      this.state = {
+        brushColor: '',
+      }
     }
-
 
     render() {
         return (
           <div className="App">
-            <DrawingCanvas/>
+            <DrawingCanvas brushColor={this.state.brushColor}/>
             <Toolbox/>
           </div>
         );

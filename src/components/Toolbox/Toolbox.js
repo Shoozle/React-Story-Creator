@@ -18,13 +18,12 @@ class Toolbox extends React.Component {
 
     render() {
         return (
-            <div className='toolbox'>
-                {this.props.children}
+            <div className='toolbox' color={this.brushcolor}>
                 <ChromePicker
                     color={this.state.background}
                     onChange={this.handleChangeComplete}
                 />
-                <h1>{this.brushcolor}</h1>
+                <h1>{this.props.brushcolor}</h1>
             </div>
         );
     }

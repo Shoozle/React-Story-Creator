@@ -9,10 +9,22 @@ class App extends Component {
         super(props);
         this.brushcolor = 'red';
     }
+
+    componentDidMount(){
+        console.log('READY');
+        this.brushcolor = 'blue';
+        console.log(this.props.brushcolor);
+    }
+
+    getBrushColor(color){
+        console.log(color);
+    }
+
     render() {
         return (
             <div className="App">
-                <Toolbox  />
+                <Toolbox/>
+                {console.log(color)}
                 <DrawingCanvas />
                 <h1>{this.brushcolor}</h1>
                 {console.log(this.brushcolor)}

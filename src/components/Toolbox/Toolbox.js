@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ChromePicker } from 'react-color';
+import './Toolbox.css';
 
-class Toolbox extends Component {
-        state = {
-            brushColor: '#fff',
-        };
+class Toolbox extends React.Component {
+  state = {
+    background: '#fff',
+  };
 
-    handleChangeComplete = (color) => {
-        this.setState({ brushColor: color.hex });
-    };
+  handleChangeComplete = (color) => {
+    this.setState({ background: color.hex });
+  };
 
-    render() {
-        return (
-            <div>
-                <ChromePicker 
-                color={ this.state.brushColor }
-                onChange={ this.handleChangeComplete }/>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <ChromePicker
+        color={ this.state.background }
+        onChange={ this.handleChangeComplete }
+      />
+    );
+  }
 }
 
 export default Toolbox;

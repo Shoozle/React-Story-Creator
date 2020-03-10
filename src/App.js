@@ -5,21 +5,14 @@ import Toolbox from './components/Toolbox/Toolbox';
 import './App.css';
 
 class App extends Component {
-    constructor() {
-      super();
-      this.state = {
-        brushColor: '',
-      }
-    }
-
     render() {
         return (
-          <div className="App">
-            <DrawingCanvas brushColor={this.state.brushColor}/>
-            <Toolbox/>
-          </div>
+            <div className="App">
+                <Toolbox />
+                <DrawingCanvas />
+            </div>
         );
-      }
-    }  
+    }
+}
 
 export default App;

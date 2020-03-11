@@ -21,7 +21,7 @@ class DrawingCanvas extends React.Component {
         let ctx = canvas.getContext("2d");    
         ctx.lineWidth = 25;
         ctx.lineCap = 'round';
-        ctx.strokeStyle = 'black'
+        ctx.strokeStyle = this.props.brushcolor;
         ctx.lineTo(e.clientX - offsetLeft, e.clientY - offsetTop);
         ctx.stroke();
         ctx.beginPath();

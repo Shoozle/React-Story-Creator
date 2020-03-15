@@ -41,18 +41,11 @@ class DrawingCanvas extends React.Component {
         this.present++;
     }
 
-    componentDidMount(){
-        //Initial fill
-        let canvas = this.canvas.current;
-        let ctx = canvas.getContext("2d");
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);        
-    }
 
     render() {
         return (
-            <div className="tc">
-                <canvas className="DrawingCanvas" ref={this.canvas} width={this.props.width} height={this.props.height} 
+            <div className='tc w-70'>
+                <canvas className='DrawingCanvas' ref={this.canvas} 
                 onMouseDown={(e) => this.startPosition(e)}
                 onMouseMove={(e) => this.draw(e)}
                 onMouseUp={() => this.finishedPosition()}

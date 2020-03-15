@@ -13,7 +13,7 @@ class App extends Component {
         super(props);
         this.state = {
             background: '#000',
-            route: 'signin',
+            route: 'create',
             isSignedIn: false
         }
     }
@@ -50,7 +50,7 @@ class App extends Component {
                     onChange={this.handleChangeComplete}
                 />
                 </div>
-                <DrawingCanvas className=''brushcolor={background} width={'1000px'} />
+                <DrawingCanvas brushcolor={background}/>
                 </div>
                 : ( route === 'signin' ? <Signin onRouteChange={this.onRouteChange}/> : 
                 <Register onRouteChange={this.onRouteChange} />)

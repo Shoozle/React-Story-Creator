@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import DrawingCanvas from './components/DrawingCanvas/DrawingCanvas';
 import Toolbox from './components/Toolbox/Toolbox';
 import Navigation from './components/Navigation/Navigation';
+import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 import { ChromePicker } from 'react-color';
 import './App.css';
 
@@ -24,18 +26,36 @@ class App extends Component {
         console.log(this.state.background);
     }
 
+    onRouteChange = (route) => {
+        if (route === 'signout') {
+          this.setState({isSignedIn: false})
+        } else if (route === 'home'){
+          this.setState({isSignedIn: true})
+        }
+        this.setState({route : route});
+      }
+
     render() {
+        const { background, isSignedIn, route } = this.state;
         return (
             <div className="App">
-            <Navigation />
+            <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
+            {
+                route === 'home'
+                ?
+                <div>
                 <div className="toolbox">
                 <ChromePicker
-                    color={this.state.background}
+                    color={background}
                     onChange={this.handleChangeComplete}
                 />
                 </div>
-                <DrawingCanvas brushcolor={this.state.background} />
-                <h1>{this.state.background}</h1>
+                <DrawingCanvas brushcolor={background} />
+                </div>
+                : ( route === 'signin' ? <Signin onRouteChange={this.onRouteChange}/> : 
+                <Register onRouteChange={this.onRouteChange} />)
+
+            }
             </div>
         );
     }

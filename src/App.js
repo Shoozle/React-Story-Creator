@@ -29,7 +29,7 @@ class App extends Component {
     onRouteChange = (route) => {
         if (route === 'signout') {
           this.setState({isSignedIn: false})
-        } else if (route === 'home'){
+        } else if (route === 'create'){
           this.setState({isSignedIn: true})
         }
         this.setState({route : route});
@@ -41,7 +41,7 @@ class App extends Component {
             <div className="App">
             <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
             {
-                route === 'home'
+                route === 'create'
                 ?
                 <div>
                 <div className="toolbox">

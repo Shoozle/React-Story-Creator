@@ -11,6 +11,8 @@ class App extends Component {
         super(props);
         this.state = {
             background: '#fff',
+            route: 'signin',
+            isSignedIn: false
         }
     }
 

@@ -12,7 +12,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            background: '#fff',
+            background: '#000',
             route: 'signin',
             isSignedIn: false
         }
@@ -44,13 +44,13 @@ class App extends Component {
                 route === 'create'
                 ?
                 <div>
-                <div className="toolbox">
+                <div className='toolbox'>
                 <ChromePicker
                     color={background}
                     onChange={this.handleChangeComplete}
                 />
                 </div>
-                <DrawingCanvas brushcolor={background} />
+                <DrawingCanvas className=''brushcolor={background} width={'1000px'} />
                 </div>
                 : ( route === 'signin' ? <Signin onRouteChange={this.onRouteChange}/> : 
                 <Register onRouteChange={this.onRouteChange} />)

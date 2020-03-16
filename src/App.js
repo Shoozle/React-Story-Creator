@@ -43,8 +43,8 @@ render() {
             {
                 route === 'create'
                     ?
-                    <div>
-                        <div className='toolbox'>
+                    <div className='flex'>
+                        <div className='toolbox tc center w-20'>
                             <ChromePicker
                                 color={background}
                                 onChange={this.handleChangeComplete}

@@ -1,6 +1,8 @@
 nav{
     display: flex;
     justify-content: flex-end;
+    background-color: lightcoral;
+    margin-bottom: 1em;
 }
 nav p{
     cursor: pointer;

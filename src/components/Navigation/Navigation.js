@@ -13,8 +13,8 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
     } else {
         return (
             <nav>
-                <p onClick={() => onRouteChange('signin')} className='f3 link dim black underline pa3 pointer'> Sign In</p>
-                <p onClick={() => onRouteChange('register')} className='f3 link dim black underline pa3 pointer'> Register</p>
+                <p onClick={() => onRouteChange('signin')} className='f4 link dim black pa2 pointer'> Sign In</p>
+                <p onClick={() => onRouteChange('register')} className='f4 link dim black pa2 pointer'> Register</p>
             </nav>
         );
     }

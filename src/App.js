@@ -14,51 +14,51 @@ class App extends Component {
         this.state = {
             background: '#000',
             route: 'create',
-            isSignedIn: false
+            isSignedIn: false,
+            height: window.innerHeight,
+            width: window.innerWidth
         }
     }
 
-    componentDidMount() {
+
+handleChangeComplete = (color) => {
+    this.setState({ background: color.hex });
+    console.log(this.state.background);
+}
+
+onRouteChange = (route) => {
+    if (route === 'signout') {
+        this.setState({ isSignedIn: false })
+    } else if (route === 'create') {
+        this.setState({ isSignedIn: true })
     }
+    this.setState({ route: route });
+}
 
-    handleChangeComplete = (color) => {
-        this.setState({ background: color.hex });
-        console.log(this.state.background);
-    }
-
-    onRouteChange = (route) => {
-        if (route === 'signout') {
-          this.setState({isSignedIn: false})
-        } else if (route === 'create'){
-          this.setState({isSignedIn: true})
-        }
-        this.setState({route : route});
-      }
-
-    render() {
-        const { background, isSignedIn, route } = this.state;
-        return (
-            <div className="App">
-            <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
+render() {
+    const { background, isSignedIn, route } = this.state;
+    return (
+        <div className="App">
+            <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
             {
                 route === 'create'
-                ?
-                <div>
-                <div className='toolbox'>
-                <ChromePicker
-                    color={background}
-                    onChange={this.handleChangeComplete}
-                />
-                </div>
-                <DrawingCanvas brushcolor={background}/>
-                </div>
-                : ( route === 'signin' ? <Signin onRouteChange={this.onRouteChange}/> : 
-                <Register onRouteChange={this.onRouteChange} />)
+                    ?
+                    <div>
+                        <div className='toolbox'>
+                            <ChromePicker
+                                color={background}
+                                onChange={this.handleChangeComplete}
+                            />
+                        </div>
+                        <DrawingCanvas brushcolor={background} />
+                    </div>
+                    : (route === 'signin' ? <Signin onRouteChange={this.onRouteChange} /> :
+                        <Register onRouteChange={this.onRouteChange} />)
 
             }
-            </div>
-        );
-    }
+        </div>
+    );
+}
 }
 
 //<Toolbox brushcolor={this.brushcolor}/>

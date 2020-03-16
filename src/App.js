@@ -15,11 +15,14 @@ class App extends Component {
             background: '#000',
             route: 'create',
             isSignedIn: false,
-            height: window.innerHeight,
             width: window.innerWidth
         }
     }
 
+handleResize = () => {
+    this.setState({width: window.innerWidth});
+    console.log(this.state.width);
+}
 
 handleChangeComplete = (color) => {
     this.setState({ background: color.hex });
@@ -36,10 +39,10 @@ onRouteChange = (route) => {
 }
 
 render() {
-    const { background, isSignedIn, route } = this.state;
+    const { background, isSignedIn, route, width } = this.state;
     return (
         <div className="App">
-            <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
+            <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} onresize={this.handleResize}/>
             {
                 route === 'create'
                     ?
@@ -50,7 +53,11 @@ render() {
                                 onChange={this.handleChangeComplete}
                             />
                         </div>
-                        <DrawingCanvas brushcolor={background} />
+                        <DrawingCanvas 
+                        brushcolor={background} 
+                        width={'400px'}
+                        height={'400px'}    
+                        />
                     </div>
                     : (route === 'signin' ? <Signin onRouteChange={this.onRouteChange} /> :
                         <Register onRouteChange={this.onRouteChange} />)

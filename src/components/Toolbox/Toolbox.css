@@ -4,3 +4,11 @@
     min-width: 225px;
     background-color: lightcoral;
 }
+
+@media only screen and (max-width: 700px){
+    .toolbox{
+        background-color: red;
+        position: absolute;
+        left: -225px;
+    }
+}

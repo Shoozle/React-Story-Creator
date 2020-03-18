@@ -46,7 +46,7 @@ render() {
             {
                 route === 'create'
                     ?
-                    <div className='flex'>
+                    <div className='flex center'>
                         <div className='toolbox tc center w-20'>
                             <ChromePicker
                                 color={background}

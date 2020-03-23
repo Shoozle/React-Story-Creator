@@ -55,8 +55,8 @@ render() {
                         </div>
                         <DrawingCanvas 
                         brushcolor={background} 
-                        width={'400px'}
-                        height={'400px'}    
+                        width={'401px'}
+                        height={'401px'}    
                         />
                     </div>
                     : (route === 'signin' ? <Signin onRouteChange={this.onRouteChange} /> :

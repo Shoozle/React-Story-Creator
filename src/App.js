@@ -14,8 +14,7 @@ class App extends Component {
         this.state = {
             background: '#000',
             route: 'create',
-            isSignedIn: false,
-            width: window.innerWidth
+            isSignedIn: false
         }
     }
 

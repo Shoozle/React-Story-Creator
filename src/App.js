@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import Navigation from './components/Navigation/Navigation';
 import DrawingCanvas from './components/DrawingCanvas/DrawingCanvas';
-import Toolbox from './components/Toolbox/Toolbox';
+//import Toolbox from './components/Toolbox/Toolbox';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';

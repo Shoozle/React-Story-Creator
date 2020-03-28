@@ -38,7 +38,7 @@ onRouteChange = (route) => {
 }
 
 render() {
-    const { background, isSignedIn, route, width } = this.state;
+    const { background, isSignedIn, route } = this.state;
     return (
         <div className="App">
             <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} onresize={this.handleResize}/>
@@ -46,11 +46,15 @@ render() {
                 route === 'create'
                     ?
                     <div className='flex center'>
-                        <div className='toolbox tc center w-20'>
+                        <div className='toolbox bg-washed-red w-20'>
                             <ChromePicker
+                                className='w-100'
                                 color={background}
                                 onChange={this.handleChangeComplete}
+                                
                             />
+                            <button input="undo">Undo</button>
+                            <button value="undo">Redo</button>
                         </div>
                         <DrawingCanvas 
                         brushcolor={background} 

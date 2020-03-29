@@ -41,6 +41,7 @@ componentDidMount() {
     const { pictures } = this.state;
     pictures.push('hello');
     console.log(pictures);
+    pictures.push(this.children);
 }
 
 onRouteChange = (route) => {
@@ -75,7 +76,7 @@ render() {
                         brushcolor={background} 
                         width={'400px'}
                         height={'400px'}
-                        ref    
+                        ref={this.DrawingCanvas}    
                         />
                     </div>
                     : (route === 'signin' ? <Signin onRouteChange={this.onRouteChange} /> :

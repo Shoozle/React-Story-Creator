@@ -7,6 +7,7 @@ class DrawingCanvas extends React.Component {
         this.present = 0;
         this.painting = false;
         this.canvas = React.createRef();
+        this.paintings = [];
     }
 
     //State is similar to props, but it is private and fully controlled by the component.
@@ -38,7 +39,26 @@ class DrawingCanvas extends React.Component {
         let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");
         ctx.beginPath();
+        this.paintings.push(canvas.toDataURL());
         this.present++;
+        console.log(this.paintings);
+    }
+
+    undo = () => {
+
+    }
+    
+    redo = () => {
+        
+    }
+
+    componentDidMount = () => {
+        let canvas = this.canvas.current;
+        let ctx = canvas.getContext("2d");
+        ctx.fillStyle = '#FFF';
+        ctx.fillRect(0, 0, 400, 400);
+        this.paintings.push(canvas.toDataURL());
+        console.log(this.paintings);
     }
 
 
@@ -52,6 +72,8 @@ class DrawingCanvas extends React.Component {
                 onMouseUp={() => this.finishedPosition()}
                 onMouseLeave={() => this.finishedPosition()}
                 ></canvas>
+                                            <button input="undo">Undo</button>
+                            <button value="undo">Redo</button>
             </div>
         );
     }

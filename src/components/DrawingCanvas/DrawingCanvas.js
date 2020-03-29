@@ -50,6 +50,7 @@ class DrawingCanvas extends React.Component {
                 onMouseDown={(e) => this.startPosition(e)}
                 onMouseMove={(e) => this.draw(e)}
                 onMouseUp={() => this.finishedPosition()}
+                onMouseLeave={() => this.finishedPosition()}
                 ></canvas>
             </div>
         );

@@ -14,7 +14,8 @@ class App extends Component {
         this.state = {
             background: '#000',
             route: 'create',
-            isSignedIn: false
+            isSignedIn: false,
+            pictures: []
         }
     }
 
@@ -26,6 +27,20 @@ handleResize = () => {
 handleChangeComplete = (color) => {
     this.setState({ background: color.hex });
     console.log(this.state.background);
+}
+
+undo = () => {
+
+}
+
+redo = () => {
+    
+}
+
+componentDidMount() {
+    const { pictures } = this.state;
+    pictures.push('hello');
+    console.log(pictures);
 }
 
 onRouteChange = (route) => {
@@ -59,7 +74,8 @@ render() {
                         <DrawingCanvas 
                         brushcolor={background} 
                         width={'400px'}
-                        height={'400px'}    
+                        height={'400px'}
+                        ref    
                         />
                     </div>
                     : (route === 'signin' ? <Signin onRouteChange={this.onRouteChange} /> :

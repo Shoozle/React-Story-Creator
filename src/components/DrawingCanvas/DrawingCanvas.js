@@ -32,6 +32,7 @@ class DrawingCanvas extends React.Component {
     startPosition(e) {
         this.painting = true;
         this.draw(e);    //Adding the event here draws it on click to create dots
+        this.paintings.splice(this.present);
     }
 
     finishedPosition() {
@@ -41,7 +42,6 @@ class DrawingCanvas extends React.Component {
         ctx.beginPath();
         this.paintings.push(canvas.toDataURL());
         this.present++;
-        console.log(this.paintings);
     }
 
     undo = () => {
@@ -49,10 +49,8 @@ class DrawingCanvas extends React.Component {
         let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");
         let image = new Image();
-        image.src = this.paintings[this.present];
-        console.log(this.paintings[this.present]);
-        ctx.drawImage(image.src, 0, 0);
-        console.log(this.present);
+        image.src = this.paintings[this.present-1];
+        image.onload = () => ctx.drawImage(image, 0, 0);
     }
 
     redo = () => {
@@ -65,7 +63,6 @@ class DrawingCanvas extends React.Component {
         ctx.fillStyle = '#FFF';
         ctx.fillRect(0, 0, 400, 400);
         this.paintings.push(canvas.toDataURL());
-        console.log(this.paintings);
     }
 
 

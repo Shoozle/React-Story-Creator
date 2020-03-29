@@ -19,7 +19,7 @@ class DrawingCanvas extends React.Component {
         let canvas = this.canvas.current;
         let offsetLeft = canvas.offsetLeft - window.scrollX;
         let offsetTop = canvas.offsetTop - window.scrollY;
-        let ctx = canvas.getContext("2d");    
+        let ctx = canvas.getContext("2d");
         ctx.lineWidth = 25;
         ctx.lineCap = 'round';
         ctx.strokeStyle = this.props.brushcolor;
@@ -29,12 +29,12 @@ class DrawingCanvas extends React.Component {
         ctx.moveTo(e.clientX - offsetLeft, e.clientY - offsetTop);
     }
 
-    startPosition(e){
+    startPosition(e) {
         this.painting = true;
         this.draw(e);    //Adding the event here draws it on click to create dots
     }
 
-    finishedPosition(){
+    finishedPosition() {
         this.painting = false;
         let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");
@@ -45,11 +45,18 @@ class DrawingCanvas extends React.Component {
     }
 
     undo = () => {
-
+        this.present--;
+        let canvas = this.canvas.current;
+        let ctx = canvas.getContext("2d");
+        let image = new Image();
+        image.src = this.paintings[this.present];
+        console.log(this.paintings[this.present]);
+        ctx.drawImage(image.src, 0, 0);
+        console.log(this.present);
     }
-    
+
     redo = () => {
-        
+
     }
 
     componentDidMount = () => {
@@ -66,14 +73,14 @@ class DrawingCanvas extends React.Component {
         const { width, height } = this.props;
         return (
             <div className='tc w-70 pa1'>
-                <canvas className='DrawingCanvas' width={width} height={height} ref={this.canvas} 
-                onMouseDown={(e) => this.startPosition(e)}
-                onMouseMove={(e) => this.draw(e)}
-                onMouseUp={() => this.finishedPosition()}
-                onMouseLeave={() => this.finishedPosition()}
+                <canvas className='DrawingCanvas' width={width} height={height} ref={this.canvas}
+                    onMouseDown={(e) => this.startPosition(e)}
+                    onMouseMove={(e) => this.draw(e)}
+                    onMouseUp={() => this.finishedPosition()}
+                    onMouseLeave={() => this.finishedPosition()}
                 ></canvas>
-                                            <button input="undo">Undo</button>
-                            <button value="undo">Redo</button>
+                <button onClick={() => this.undo()}>Undo</button>
+                <button onClick={() => this.redo()}>Redo</button>
             </div>
         );
     }

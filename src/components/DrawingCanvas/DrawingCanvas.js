@@ -32,26 +32,28 @@ class DrawingCanvas extends React.Component {
     startPosition(e) {
         this.painting = true;
         this.draw(e);    //Adding the event here draws it on click to create dots
-        this.paintings.splice(this.present);
+        this.paintings.splice(this.present + 1);
     }
 
     finishedPosition() {
+        console.log('called finished pos');
         this.painting = false;
         let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");
         ctx.beginPath();
         this.paintings.push(canvas.toDataURL());
-        this.present++;
+        this.present+=1;
     }
 
     undo = () => {
-        if (this.present > 0)
-        this.present--;
-        let canvas = this.canvas.current;
-        let ctx = canvas.getContext("2d");
-        let image = new Image();
-        image.src = this.paintings[this.present];
-        image.onload = () => ctx.drawImage(image, 0, 0);
+        if (this.present > 0){
+            this.present -= 1;
+            let canvas = this.canvas.current;
+            let ctx = canvas.getContext("2d");
+            let image = new Image();
+            image.src = this.paintings[this.present];
+            image.onload = () => ctx.drawImage(image, 0, 0);
+        }
     }
 
     redo = () => {
@@ -75,7 +77,6 @@ class DrawingCanvas extends React.Component {
                     onMouseDown={(e) => this.startPosition(e)}
                     onMouseMove={(e) => this.draw(e)}
                     onMouseUp={() => this.finishedPosition()}
-                    onMouseLeave={() => this.finishedPosition()}
                 ></canvas>
                 <button onClick={() => this.undo()}>Undo</button>
                 <button onClick={() => this.redo()}>Redo</button>

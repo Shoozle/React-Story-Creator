@@ -36,7 +36,6 @@ class DrawingCanvas extends React.Component {
     }
 
     finishedPosition() {
-        console.log('called finished pos');
         this.painting = false;
         let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");

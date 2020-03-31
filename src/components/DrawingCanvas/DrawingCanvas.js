@@ -45,11 +45,12 @@ class DrawingCanvas extends React.Component {
     }
 
     undo = () => {
+        if (this.present > 0)
         this.present--;
         let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");
         let image = new Image();
-        image.src = this.paintings[this.present-1];
+        image.src = this.paintings[this.present];
         image.onload = () => ctx.drawImage(image, 0, 0);
     }
 

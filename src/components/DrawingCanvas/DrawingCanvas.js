@@ -56,7 +56,7 @@ class DrawingCanvas extends React.Component {
     }
 
     redo = () => {
-        if (this.paintings.length < this.present + 1){
+        if (this.present < this.paintings.length - 1){
             this.present += 1;
             let canvas = this.canvas.current;
             let ctx = canvas.getContext("2d");

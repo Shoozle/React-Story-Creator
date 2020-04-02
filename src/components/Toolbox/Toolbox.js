@@ -18,7 +18,8 @@ class Toolbox extends React.Component {
     render() {
         return (
             <div className='toolbox'>
-
+                <button onClick={() => this.undo()}>Undo</button>
+                <button onClick={() => this.redo()}>Redo</button>
             </div>
         );
     }

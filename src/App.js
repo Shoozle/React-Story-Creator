@@ -43,7 +43,7 @@ componentDidMount() {
 onRouteChange = (route) => {
     if (route === 'signout') {
         this.setState({ isSignedIn: false })
-    } else if (route === 'create') {
+    } else if (route === 'create' || route ==='browse') {
         this.setState({ isSignedIn: true })
     }
     this.setState({ route: route });

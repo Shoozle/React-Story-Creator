@@ -65,8 +65,9 @@ render() {
                                 onChange={this.handleChangeComplete}
                                 
                             />
-                            <button input="undo">Undo</button>
+                            <button value="undo">Undo</button>
                             <button value="undo">Redo</button>
+                            <button value="Fill">Fill</button>
                         </div>
                         <DrawingCanvas 
                         brushcolor={background} 

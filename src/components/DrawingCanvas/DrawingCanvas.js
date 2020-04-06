@@ -66,6 +66,16 @@ class DrawingCanvas extends React.Component {
         }
     }
 
+    fill = () => {
+        let canvas = this.canvas.current;
+        let ctx = canvas.getContext("2d");
+        ctx.fillStyle = this.props.brushcolor;
+        ctx.fillRect(0, 0, 400, 400);
+        this.paintings.push(canvas.toDataURL());
+        this.present+=1;
+
+    }
+
     componentDidMount = () => {
         let canvas = this.canvas.current;
         let ctx = canvas.getContext("2d");
@@ -86,6 +96,7 @@ class DrawingCanvas extends React.Component {
                 ></canvas>
                 <button onClick={() => this.undo()}>Undo</button>
                 <button onClick={() => this.redo()}>Redo</button>
+                <button onClick={() => this.fill()}>Fill</button>
             </div>
         );
     }

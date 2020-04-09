@@ -97,6 +97,7 @@ class DrawingCanvas extends React.Component {
                 <button onClick={() => this.undo()}>Undo</button>
                 <button onClick={() => this.redo()}>Redo</button>
                 <button onClick={() => this.fill()}>Fill</button>
+                <button onClick={() => this.preview()}>Preview</button>
             </div>
         );
     }

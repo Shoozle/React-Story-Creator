@@ -1,0 +1,9 @@
+.Canvas {
+    border: 1px solid black;
+}
+
+canvas {
+    background-color: #555;
+    width: 1000px;
+    height: 1000px;
+}

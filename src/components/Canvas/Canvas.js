@@ -52,6 +52,7 @@ const Canvas = (props) => {
                     draw(canvas, {x: e.clientX, y: e.clientY})
                 }}
                 onMouseUp={endPosition}
+                onMouseLeave={endPosition}
             />
         </div>
     )

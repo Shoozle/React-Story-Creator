@@ -3,34 +3,40 @@ import classes from './canvas.module.css'
 
 const Canvas = (props) => {
 
-    const canvasRef = useRef(null)
+    const canvasRef = useRef(null);
+
+    const [painting, setPainting] = useState(false);
 
     useEffect(() => {
 
     }, [])
 
-    const startPosition = (e) => {
-        draw(e);    
+    const startPosition = () => {
+        setPainting(true)  
     }
 
     const endPosition = (e) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         ctx.beginPath();
+        setPainting(false)
     }
 
-    const draw = (e) => {
-        const canvas = canvasRef.current;
+    const draw = (canvas, location) => {
         const ctx = canvas.getContext('2d');
+        const {x, y} = location;
+        
+        if (!painting) return;
+
         let offsetLeft = canvas.offsetLeft - window.scrollX;
         let offsetTop = canvas.offsetTop - window.scrollY;
         ctx.lineWidth = 20;
         ctx.lineCap = "round";
         ctx.strokeStyle = 'black';
-        ctx.lineTo(e.clientX - offsetLeft, e.clientY - offsetTop);
+        ctx.lineTo(x - offsetLeft, y - offsetTop);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(e.clientX - offsetLeft, e.clientY - offsetTop);
+        ctx.moveTo(x - offsetLeft, y - offsetTop);
     }
 
 
@@ -40,8 +46,11 @@ const Canvas = (props) => {
                 width="1000px" height="1000px"
                 ref={canvasRef} 
                 id="drawing-canvas"
-                onMouseDown={e => startPosition(e)} 
-                onMouseMove={e => draw(e)}
+                onMouseDown={startPosition} 
+                onMouseMove={e => {
+                    const canvas = canvasRef.current;
+                    draw(canvas, {x: e.clientX, y: e.clientY})
+                }}
                 onMouseUp={endPosition}
             />
         </div>

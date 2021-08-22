@@ -4,8 +4,8 @@ import classes from './canvas.module.css'
 const Canvas = (props) => {
 
     const canvasRef = useRef(null);
-
     const [painting, setPainting] = useState(false);
+    const [drawings, setDrawings] = useState([]);
 
     useEffect(() => {
 
@@ -16,10 +16,15 @@ const Canvas = (props) => {
     }
 
     const endPosition = (e) => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        ctx.beginPath();
-        setPainting(false)
+        if (painting) { 
+            const canvas = canvasRef.current;
+            const ctx = canvas.getContext('2d');
+            ctx.beginPath();
+            const oldDrawings = [...drawings]
+            oldDrawings.push(canvas.toDataURL())
+            setDrawings(oldDrawings)
+        }
+        setPainting(false);
     }
 
     const draw = (canvas, location) => {
@@ -39,11 +44,20 @@ const Canvas = (props) => {
         ctx.moveTo(x - offsetLeft, y - offsetTop);
     }
 
+    const undo = () => {
+        console.log(drawings);
+
+    }
+
+    const redo = () => {
+
+    }
+
 
     return (
         <div className={classes.Canvas}>
             <canvas
-                width="1000px" height="1000px"
+                width="400px" height="400px"
                 ref={canvasRef} 
                 id="drawing-canvas"
                 onMouseDown={startPosition} 
@@ -54,6 +68,8 @@ const Canvas = (props) => {
                 onMouseUp={endPosition}
                 onMouseLeave={endPosition}
             />
+            <button onClick={undo}>Undo</button>
+            <button onClick={redo}>Redo</button>
         </div>
     )
 }

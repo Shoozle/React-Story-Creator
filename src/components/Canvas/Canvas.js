@@ -6,31 +6,44 @@ const Canvas = (props) => {
     const canvasRef = useRef(null);
     const [painting, setPainting] = useState(false);
     const [drawings, setDrawings] = useState([]);
+    const [index, setIndex] = useState(0);
 
     useEffect(() => {
+        const canvas = canvasRef.current;
+        if (drawings.length === 0) {
+            const oldDrawings = [...drawings]
+            oldDrawings.push(canvas.toDataURL())
+            setDrawings(oldDrawings)
+        }
+        const ctx = canvas.getContext('2d');
 
-    }, [])
+        let image = new Image();
+        image.src = drawings[index];
+        image.onload = () => ctx.drawImage(image, 0, 0);
+
+    }, [index])
 
     const startPosition = () => {
-        setPainting(true)  
+        setPainting(true)
     }
 
     const endPosition = (e) => {
-        if (painting) { 
+        if (painting) {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
             ctx.beginPath();
             const oldDrawings = [...drawings]
             oldDrawings.push(canvas.toDataURL())
             setDrawings(oldDrawings)
+            setIndex(index + 1);
         }
         setPainting(false);
     }
 
     const draw = (canvas, location) => {
         const ctx = canvas.getContext('2d');
-        const {x, y} = location;
-        
+        const { x, y } = location;
+
         if (!painting) return;
 
         let offsetLeft = canvas.offsetLeft - window.scrollX;
@@ -46,24 +59,36 @@ const Canvas = (props) => {
 
     const undo = () => {
         console.log(drawings);
-
+        console.log(index);
+        if (index > 0) {
+            const canvas = canvasRef.current;
+            const ctx = canvas.getContext('2d');
+            setIndex(prevIndex => prevIndex - 1)
+            ctx.clearRect(0, 0, 400, 400);
+        }
     }
 
     const redo = () => {
-
+        if (index < drawings.length - 1) {
+            const canvas = canvasRef.current;
+            const ctx = canvas.getContext('2d');
+            setIndex(prevIndex => prevIndex + 1)
+            ctx.clearRect(0, 0, 400, 400);
+        }
     }
+
 
 
     return (
         <div className={classes.Canvas}>
             <canvas
                 width="400px" height="400px"
-                ref={canvasRef} 
+                ref={canvasRef}
                 id="drawing-canvas"
-                onMouseDown={startPosition} 
+                onMouseDown={startPosition}
                 onMouseMove={e => {
                     const canvas = canvasRef.current;
-                    draw(canvas, {x: e.clientX, y: e.clientY})
+                    draw(canvas, { x: e.clientX, y: e.clientY })
                 }}
                 onMouseUp={endPosition}
                 onMouseLeave={endPosition}

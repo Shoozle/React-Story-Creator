@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
+import { indexReducer } from '../../store/story';
 import classes from './canvas.module.css'
 
 const Canvas = (props) => {
@@ -6,7 +7,9 @@ const Canvas = (props) => {
     const canvasRef = useRef(null);
     const [painting, setPainting] = useState(false);
     const [drawings, setDrawings] = useState([]);
-    const [index, setIndex] = useState(0);
+    const [state, dispatch] = useReducer(indexReducer, {index: 0})
+
+    const { index } = state;
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -16,12 +19,14 @@ const Canvas = (props) => {
             setDrawings(oldDrawings)
         }
         const ctx = canvas.getContext('2d');
-
         let image = new Image();
         image.src = drawings[index];
         image.onload = () => ctx.drawImage(image, 0, 0);
+        console.log(index);
 
     }, [index])
+
+    // console.log(state.index)
 
     const startPosition = () => {
         setPainting(true)
@@ -35,7 +40,7 @@ const Canvas = (props) => {
             const oldDrawings = [...drawings]
             oldDrawings.push(canvas.toDataURL())
             setDrawings(oldDrawings)
-            setIndex(index + 1);
+            dispatch({type: 'increment'})
         }
         setPainting(false);
     }
@@ -58,12 +63,10 @@ const Canvas = (props) => {
     }
 
     const undo = () => {
-        console.log(drawings);
-        console.log(index);
         if (index > 0) {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
-            setIndex(prevIndex => prevIndex - 1)
+            dispatch({type: 'decrement'});
             ctx.clearRect(0, 0, 400, 400);
         }
     }
@@ -72,7 +75,7 @@ const Canvas = (props) => {
         if (index < drawings.length - 1) {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
-            setIndex(prevIndex => prevIndex + 1)
+            dispatch({type: 'increment'});
             ctx.clearRect(0, 0, 400, 400);
         }
     }

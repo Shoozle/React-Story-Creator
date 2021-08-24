@@ -1,4 +1,4 @@
-const index = { index: 0 };
+const initState = { index: 0 };
 
 function indexReducer(state, action) {
     switch (action.type) {

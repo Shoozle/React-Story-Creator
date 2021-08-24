@@ -13,12 +13,16 @@ const Canvas = (props) => {
 
     useEffect(() => {
         const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        
         if (drawings.length === 0) {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, 400, 400);
             const oldDrawings = [...drawings]
             oldDrawings.push(canvas.toDataURL())
             setDrawings(oldDrawings)
         }
-        const ctx = canvas.getContext('2d');
+        
         let image = new Image();
         image.src = drawings[index];
         image.onload = () => ctx.drawImage(image, 0, 0);
@@ -64,19 +68,13 @@ const Canvas = (props) => {
 
     const undo = () => {
         if (index > 0) {
-            const canvas = canvasRef.current;
-            const ctx = canvas.getContext('2d');
             dispatch({type: 'decrement'});
-            ctx.clearRect(0, 0, 400, 400);
         }
     }
 
     const redo = () => {
         if (index < drawings.length - 1) {
-            const canvas = canvasRef.current;
-            const ctx = canvas.getContext('2d');
             dispatch({type: 'increment'});
-            ctx.clearRect(0, 0, 400, 400);
         }
     }
 

@@ -16,7 +16,7 @@ const storyReducer = (state, action) => {
             const pageNum = oldPages.length + 1;
             oldPages.push({description: '', paintingIndex: 0, paintings: []})
             
-            return { ...state, pageNum, oldPages };
+            return { ...state, pageNum, pages : oldPages };
         default:
             // throw new Error('Unexpected case');
     }

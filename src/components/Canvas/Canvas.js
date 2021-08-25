@@ -39,7 +39,7 @@ const Canvas = (props) => {
         // image.src = drawings[0];
         // image.onload = () => ctx.drawImage(image, 0, 0);
 
-        console.log(storyState.pages);
+        console.log(storyState);
 
     }, [storyState])
 

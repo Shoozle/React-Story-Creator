@@ -3,7 +3,7 @@ import storyReducer from '../../store/story';
 import classes from './canvas.module.css'
 
 const initialStoryState = {
-        pageNum: 0,
+        pageNum: 1,
         pages: [
             {
                 description: '',
@@ -55,7 +55,7 @@ const Canvas = (props) => {
             // const oldDrawings = [...drawings]
             // oldDrawings.push(canvas.toDataURL())
             // setDrawings(oldDrawings)
-            dispatchStory({ type: 'ADD_PAGE' })
+            // dispatchStory({ type: 'ADD_PAGE' })
         }
         setPainting(false);
     }
@@ -89,6 +89,20 @@ const Canvas = (props) => {
         // }
     }
 
+    const newPage = () => {
+        dispatchStory({ type: 'ADD_PAGE' })
+    }
+
+    const nextPage = () => {
+        if (storyState.pageNum < storyState.pages.length) 
+            dispatchStory({ type: 'NEXT_PAGE' })
+    }
+
+    const prevPage = () => {
+        if (storyState.pageNum > 1) 
+        dispatchStory({ type: 'PREV_PAGE' })
+    }
+
     return (
         <div className={classes.Canvas}>
             <canvas
@@ -105,6 +119,10 @@ const Canvas = (props) => {
             />
             <button onClick={undo}>Undo</button>
             <button onClick={redo}>Redo</button>
+            <button onClick={prevPage}>Previous Page</button>
+            <button onClick={newPage}>Add a Page</button>
+            <button onClick={nextPage}>Next Page</button>
+            <h1>Page {storyState.pageNum} of {storyState.pages.length}</h1>
         </div>
     )
 }

@@ -3,14 +3,14 @@ import storyReducer from '../../store/story';
 import classes from './canvas.module.css'
 
 const initialStoryState = {
-        pageNum: 1,
-        pages: [
-            {
-                description: '',
-                paintingIndex: 0,
-                paintings: []
-            }
-        ]
+    pageNum: 0,
+    pages: [
+        {
+            description: '',
+            paintingIndex: 0,
+            paintings: []
+        }
+    ]
 };
 
 const Canvas = (props) => {
@@ -20,28 +20,30 @@ const Canvas = (props) => {
 
     //State is always most uptodate state
     const [storyState, dispatchStory] = useReducer(storyReducer, initialStoryState)
-
     //Storyreducer is the function that returns a new updated state based on prevstate and action done (prevState, action)
+
+    const { pageNum, pages } = storyState;
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
-        // if (story.length === 0) {
-        //     ctx.fillStyle = 'white';
-        //     ctx.fillRect(0, 0, 400, 400);
-        //     const oldDrawings = [...story[]]
-        //     oldDrawings.push(canvas.toDataURL())
-        //     setDrawings(oldDrawings)
-        // }
+        if (pages[pageNum].paintings.length === 0) {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, 400, 400);
+        }
 
         // let image = new Image();
         // image.src = drawings[0];
         // image.onload = () => ctx.drawImage(image, 0, 0);
 
-        console.log(storyState);
+        // console.log(storyState);
 
-    }, [storyState])
+        let image = new Image();
+        image.src = pages[pageNum].paintings[pages[pageNum].paintingIndex];
+        image.onload = () => ctx.drawImage(image, 0, 0);
+
+    }, [pageNum, pages])
 
     const startPosition = () => {
         setPainting(true)
@@ -52,10 +54,7 @@ const Canvas = (props) => {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
             ctx.beginPath();
-            // const oldDrawings = [...drawings]
-            // oldDrawings.push(canvas.toDataURL())
-            // setDrawings(oldDrawings)
-            // dispatchStory({ type: 'ADD_PAGE' })
+            dispatchStory({ type: 'ADD_PAINTING', painting: canvas.toDataURL() })
         }
         setPainting(false);
     }
@@ -78,9 +77,10 @@ const Canvas = (props) => {
     }
 
     const undo = () => {
-        // if (index > 0) {
-        //     dispatch({type: 'decrement'});
-        // }
+        console.log(pages[pageNum].paintingIndex)
+        if (pages[pageNum].paintingIndex > 0) {
+            dispatchStory({type: 'UNDO_PAINTING'});
+        }
     }
 
     const redo = () => {
@@ -94,12 +94,12 @@ const Canvas = (props) => {
     }
 
     const nextPage = () => {
-        if (storyState.pageNum < storyState.pages.length) 
+        if (storyState.pageNum < storyState.pages.length -1) 
             dispatchStory({ type: 'NEXT_PAGE' })
     }
 
     const prevPage = () => {
-        if (storyState.pageNum > 1) 
+        if (storyState.pageNum > 0) 
         dispatchStory({ type: 'PREV_PAGE' })
     }
 
@@ -122,7 +122,7 @@ const Canvas = (props) => {
             <button onClick={prevPage}>Previous Page</button>
             <button onClick={newPage}>Add a Page</button>
             <button onClick={nextPage}>Next Page</button>
-            <h1>Page {storyState.pageNum} of {storyState.pages.length}</h1>
+            <h1>Page {storyState.pageNum + 1} of {storyState.pages.length}</h1>
         </div>
     )
 }

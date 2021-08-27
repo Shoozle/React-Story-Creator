@@ -43,7 +43,7 @@ const Canvas = (props) => {
         image.src = pages[pageNum].paintings[pages[pageNum].paintingIndex];
         image.onload = () => ctx.drawImage(image, 0, 0);
 
-    }, [pageNum, pages])
+    }, [pageNum, pages, pages[pageNum].paintingIndex])
 
     const startPosition = () => {
         setPainting(true)
@@ -77,7 +77,6 @@ const Canvas = (props) => {
     }
 
     const undo = () => {
-        console.log(pages[pageNum].paintingIndex)
         if (pages[pageNum].paintingIndex > 0) {
             dispatchStory({type: 'UNDO_PAINTING'});
         }

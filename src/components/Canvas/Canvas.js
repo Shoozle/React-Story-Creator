@@ -23,27 +23,23 @@ const Canvas = (props) => {
     //Storyreducer is the function that returns a new updated state based on prevstate and action done (prevState, action)
 
     const { pageNum, pages } = storyState;
+    const index = pages[pageNum].paintingIndex;
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-
+        
         if (pages[pageNum].paintings.length === 0) {
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, 400, 400);
+            dispatchStory({ type: 'ADD_PAINTING', painting: canvas.toDataURL() })
         }
 
-        // let image = new Image();
-        // image.src = drawings[0];
-        // image.onload = () => ctx.drawImage(image, 0, 0);
-
-        // console.log(storyState);
-
         let image = new Image();
-        image.src = pages[pageNum].paintings[pages[pageNum].paintingIndex];
+        image.src = pages[pageNum].paintings[index];
         image.onload = () => ctx.drawImage(image, 0, 0);
 
-    }, [pageNum, pages, pages[pageNum].paintingIndex])
+    }, [pageNum, pages, index])
 
     const startPosition = () => {
         setPainting(true)
@@ -83,9 +79,9 @@ const Canvas = (props) => {
     }
 
     const redo = () => {
-        // if (index < drawings.length - 1) {
-        //     dispatch({type: 'increment'});
-        // }
+        if (pages[pageNum].paintingIndex < pages[pageNum].paintings.length) {
+            dispatchStory({type: 'REDO_PAINTING'});
+        }
     }
 
     const newPage = () => {

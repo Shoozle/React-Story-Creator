@@ -2,19 +2,23 @@ import update from 'immutability-helper';
 
 const storyReducer = (state, action) => {
 
-    const {pageNum, pages} = state;
+    const { pageNum, pages } = state;
 
     switch (action.type) {
         case 'UNDO_PAINTING':
-            console.log('pages', pages, 'pageNum', pageNum )
-            const pageToAlter = {...pages[pageNum]};
-            pageToAlter.paintingIndex -= 1;
-            pages[pageNum] = pageToAlter;
-            console.log(pageToAlter)
-            console.log('new pages', pages)
-            return { pageNum, pages }
+            {
+                const pageToAlter = { ...pages[pageNum] };
+                pageToAlter.paintingIndex -= 1;
+                pages[pageNum] = pageToAlter;
+                return { pageNum, pages }
+            }
         case 'REDO_PAINTING':
-            return { ...state };
+            {
+                const pageToAlter = { ...pages[pageNum] };
+                pageToAlter.paintingIndex += 1;
+                pages[pageNum] = pageToAlter;
+                return { pageNum, pages }
+            }
         case 'ADD_PAINTING':
             {
                 const oldPage = { ...state.pages[state.pageNum] };
@@ -26,7 +30,7 @@ const storyReducer = (state, action) => {
                     paintings: newState
                 }
                 const pages = state.pages[state.pageNum] = updatedPage
-                return { ...state}
+                return { ...state }
             }
         case 'NEXT_PAGE':
             {

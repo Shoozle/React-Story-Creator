@@ -34,12 +34,12 @@ const storyReducer = (state, action) => {
             }
         case 'NEXT_PAGE':
             {
-                let newCurrentPage = state.pageNum + 1;
+                const newCurrentPage = pageNum + 1;
                 return { ...state, pageNum: newCurrentPage };
             }
         case 'PREV_PAGE':
             {
-                let newCurrentPage = state.pageNum - 1;
+                const newCurrentPage = pageNum - 1;
                 return { ...state, pageNum: newCurrentPage };
             }
         case 'ADD_PAGE':

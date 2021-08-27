@@ -89,12 +89,12 @@ const Canvas = (props) => {
     }
 
     const nextPage = () => {
-        if (storyState.pageNum < storyState.pages.length -1) 
+        if (pageNum < pages.length -1) 
             dispatchStory({ type: 'NEXT_PAGE' })
     }
 
     const prevPage = () => {
-        if (storyState.pageNum > 0) 
+        if (pageNum > 0) 
         dispatchStory({ type: 'PREV_PAGE' })
     }
 

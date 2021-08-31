@@ -70,13 +70,13 @@ const Canvas = (props) => {
     }
 
     const undo = () => {
-        if (pages[pageNum].editIndex > 0) {
+        if (pages[pageNum].editIndex > 1) {
             dispatchStory({type: 'UNDO_PAINTING', payload: { pageNum }});
         }
     }
 
     const redo = () => {
-        if (pages[pageNum].editIndex < storyState.pages[pageNum].edits.length - 1) {
+        if (pages[pageNum].editIndex < storyState.pages[pageNum].edits.length) {
             dispatchStory({type: 'REDO_PAINTING', payload: { pageNum }});
         }
     }

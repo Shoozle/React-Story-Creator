@@ -1,34 +1,28 @@
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useContext, useEffect, useReducer, useRef, useState } from 'react';
+import { StoryContext } from '../../App';
 import storyReducer from '../../store/story';
 import classes from './canvas.module.css'
 
-const initialStoryState = {
-    pages: [
-        {
-            description: '',
-            editIndex: 0,
-            edits: []
-        }
-    ]
-};
 
 const Canvas = (props) => {
     
     const canvasRef = useRef(null);
     const [painting, setPainting] = useState(false);
     const [pageNum, setPageNum] = useState(0);
-    const [storyState, dispatchStory] = useReducer(storyReducer, initialStoryState)
 
-    const { pages } = storyState;
+    const storyContext = useContext(StoryContext);
+    const { pages } = storyContext.storyState;
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
+
+        const { pages } = storyContext.storyState;
         
         if (pages[pageNum].edits.length === 0) {
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, 400, 400);
-            dispatchStory({ type: 'ADD_PAINTING', payload: { pageNum, edit: canvas.toDataURL() } })
+            storyContext.dispatchStory({ type: 'ADD_PAINTING', payload: { pageNum, edit: canvas.toDataURL() } })
         }
 
         const image = new Image();
@@ -47,7 +41,7 @@ const Canvas = (props) => {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
             ctx.beginPath();
-            dispatchStory({ type: 'ADD_PAINTING', payload: { pageNum, edit: canvas.toDataURL() } })
+            storyContext.dispatchStory({ type: 'ADD_PAINTING', payload: { pageNum, edit: canvas.toDataURL() } })
         }
         setPainting(false);
     }
@@ -71,18 +65,18 @@ const Canvas = (props) => {
 
     const undo = () => {
         if (pages[pageNum].editIndex > 1) {
-            dispatchStory({type: 'UNDO_PAINTING', payload: { pageNum }});
+            storyContext.dispatchStory({type: 'UNDO_PAINTING', payload: { pageNum }});
         }
     }
 
     const redo = () => {
-        if (pages[pageNum].editIndex < storyState.pages[pageNum].edits.length) {
-            dispatchStory({type: 'REDO_PAINTING', payload: { pageNum }});
+        if (pages[pageNum].editIndex < storyContext.storyState.pages[pageNum].edits.length) {
+            storyContext.dispatchStory({type: 'REDO_PAINTING', payload: { pageNum }});
         }
     }
 
     const newPage = () => {
-        dispatchStory({ type: 'ADD_PAGE', payload: { pageNum } })
+        storyContext.dispatchStory({ type: 'ADD_PAGE', payload: { pageNum } })
         setPageNum(pages.length)
     }
 
@@ -115,7 +109,7 @@ const Canvas = (props) => {
             <button onClick={prevPage}>Previous Page</button>
             <button onClick={newPage}>Add a Page</button>
             <button onClick={nextPage}>Next Page</button>
-            <h1>Page {pageNum + 1} of {storyState.pages.length}</h1>
+            <h1>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
         </div>
     )
 }

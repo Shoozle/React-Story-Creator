@@ -20,9 +20,11 @@ const storyReducer = (state, action) => {
             }
         case 'ADD_PAINTING':
             {
+                const oldPages = [...state.pages]
+                oldPages[pageNum].edits.splice(oldPages[pageNum].editIndex)
                 pages[pageNum].edits.push(edit);
                 pages[pageNum].editIndex++;
-                return { ...state }
+                return { pages: oldPages }
             }
         case 'ADD_PAGE':
             {

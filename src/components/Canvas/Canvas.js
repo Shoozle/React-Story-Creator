@@ -12,6 +12,7 @@ const Canvas = (props) => {
     const { pages } = storyContext.storyState;
     const {pageNum} = props;
     const maxPages = 20;
+    const [brushSize, setBrushSize] = useState(20);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -51,7 +52,7 @@ const Canvas = (props) => {
 
         let offsetLeft = canvas.offsetLeft - window.scrollX;
         let offsetTop = canvas.offsetTop - window.scrollY;
-        ctx.lineWidth = 20;
+        ctx.lineWidth = brushSize;
         ctx.lineCap = "round";
         ctx.strokeStyle = 'black';
         ctx.lineTo(x - offsetLeft, y - offsetTop);
@@ -89,6 +90,10 @@ const Canvas = (props) => {
         props.onPageChange((prevPageNum) => prevPageNum - 1)
     }
 
+    const changeBrushSize = (e) => {
+        setBrushSize(e.target.value)
+    }
+
     return (
         <div className={classes.Canvas}>
             <canvas
@@ -109,6 +114,8 @@ const Canvas = (props) => {
                 onPrevPage={prevPage}
                 onNewPage={newPage}
                 onNextPage={nextPage}
+                onBrushSizeChange={changeBrushSize}
+                brushSize={brushSize}
             />
                 <h1>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
         </div>

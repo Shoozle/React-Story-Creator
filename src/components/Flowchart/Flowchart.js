@@ -8,7 +8,6 @@ const Flowchart = (props) => {
     const { pages } = storyContext.storyState;
 
     const pageDivs = pages.map((process, index) => {
-        console.log(index)
         return (
             <div
                 key={index}

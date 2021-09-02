@@ -5,6 +5,8 @@
     border: 1px solid black;
     margin: 2rem;
     padding-top: 1rem;
+    overflow: scroll;
+    padding-bottom: 1rem;
 }
 
 .box span{

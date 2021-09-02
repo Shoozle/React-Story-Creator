@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { StoryContext } from '../../App';
 import classes from './canvas.module.css'
+import Toolbox from './Toolbox/Toolbox';
 
 
 const Canvas = (props) => {
@@ -10,6 +11,7 @@ const Canvas = (props) => {
     const storyContext = useContext(StoryContext);
     const { pages } = storyContext.storyState;
     const {pageNum} = props;
+    const maxPages = 20;
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -71,8 +73,10 @@ const Canvas = (props) => {
     }
 
     const newPage = () => {
-        storyContext.dispatchStory({ type: 'ADD_PAGE', payload: { pageNum } })
-        props.onPageChange(pages.length)
+        if (pages.length < maxPages) {
+            storyContext.dispatchStory({ type: 'ADD_PAGE', payload: { pageNum } })
+            props.onPageChange(pages.length)
+        }
     }
 
     const nextPage = () => {
@@ -99,12 +103,14 @@ const Canvas = (props) => {
                 onMouseUp={endPosition}
                 onMouseLeave={endPosition}
             />
-            <button onClick={undo}>Undo</button>
-            <button onClick={redo}>Redo</button>
-            <button onClick={prevPage}>Previous Page</button>
-            <button onClick={newPage}>Add a Page</button>
-            <button onClick={nextPage}>Next Page</button>
-            <h1>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
+            <Toolbox 
+                onUndo={undo}
+                onRedo={redo}
+                onPrevPage={prevPage}
+                onNewPage={newPage}
+                onNextPage={nextPage}
+            />
+                <h1>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
         </div>
     )
 }

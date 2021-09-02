@@ -1,5 +1,3 @@
-import update from 'immutability-helper';
-
 const storyReducer = (state, action) => {
 
     const { pages } = state;
@@ -29,9 +27,7 @@ const storyReducer = (state, action) => {
         case 'ADD_PAGE':
             {
                 const oldPages = [...state.pages]
-                console.log(oldPages)
                 oldPages.push({ description: '', editIndex: 0, edits: [] })
-                console.log(oldPages)
                 return { pages: oldPages };
             }
         default:

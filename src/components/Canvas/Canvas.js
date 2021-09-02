@@ -1,6 +1,5 @@
-import { useContext, useEffect, useReducer, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { StoryContext } from '../../App';
-import storyReducer from '../../store/story';
 import classes from './canvas.module.css'
 
 
@@ -8,16 +7,13 @@ const Canvas = (props) => {
     
     const canvasRef = useRef(null);
     const [painting, setPainting] = useState(false);
-    const [pageNum, setPageNum] = useState(0);
-
     const storyContext = useContext(StoryContext);
     const { pages } = storyContext.storyState;
+    const {pageNum} = props;
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-
-        const { pages } = storyContext.storyState;
         
         if (pages[pageNum].edits.length === 0) {
             ctx.fillStyle = 'white';
@@ -28,7 +24,6 @@ const Canvas = (props) => {
         const image = new Image();
         image.src = pages[pageNum].edits[pages[pageNum].editIndex -1];
         image.onload = () => ctx.drawImage(image, 0, 0);
-        console.log('useEffect', pages, pageNum)
 
     }, [pages, pageNum])
 
@@ -77,17 +72,17 @@ const Canvas = (props) => {
 
     const newPage = () => {
         storyContext.dispatchStory({ type: 'ADD_PAGE', payload: { pageNum } })
-        setPageNum(pages.length)
+        props.onPageChange(pages.length)
     }
 
     const nextPage = () => {
         if (pageNum < pages.length -1)
-            setPageNum((prevPageNum) => prevPageNum + 1)
+        props.onPageChange((prevPageNum) => prevPageNum + 1)
     }
 
     const prevPage = () => {
         if (pageNum > 0) 
-            setPageNum((prevPageNum) => prevPageNum - 1)
+        props.onPageChange((prevPageNum) => prevPageNum - 1)
     }
 
     return (

@@ -1,6 +1,7 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useState } from 'react';
 import Canvas from './components/Canvas/Canvas';
 import Flowchart from './components/Flowchart/Flowchart';
+
 import storyReducer from './store/story';
 
 export const StoryContext = createContext();
@@ -17,16 +18,24 @@ function App() {
     ]
   };
 
+  const [pageNum, setPageNum] = useState(0);
+
+  const changePageHandler = (pageNum) => {
+    setPageNum(pageNum)
+  }
+
   const [storyState, dispatchStory] = useReducer(storyReducer, initialStoryState)
 
   return (
-    <StoryContext.Provider
-      value={{storyState: storyState, pageNum: 0, dispatchStory: dispatchStory}}>
-      <div className="App">
-        <Canvas />
-        <Flowchart />
-      </div>
-    </StoryContext.Provider>
+      <StoryContext.Provider
+        value={{
+          storyState: storyState,
+          dispatchStory: dispatchStory}}>
+        <div className="App">
+          <Canvas pageNum={pageNum} onPageChange={changePageHandler}/>
+          <Flowchart pageNum={pageNum} onPageChange={changePageHandler}/>
+        </div>
+      </StoryContext.Provider>
   );
 }
 

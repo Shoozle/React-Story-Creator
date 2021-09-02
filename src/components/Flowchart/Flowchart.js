@@ -10,13 +10,13 @@ const Flowchart = (props) => {
     const pageDivs = pages.map((process, index) => {
         console.log(index)
         return (
-        <div
-            key={index} 
-            className={classes.box}
-            onClick={() => props.onPageChange(index)} 
+            <div
+                key={index}
+                className={classes.box}
+                onClick={() => props.onPageChange(index)}
             >
-            <p>{index +1}</p>
-        </div>
+                <span>{index + 1}</span>
+            </div>
         )
     })
 

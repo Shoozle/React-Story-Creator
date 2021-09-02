@@ -4,9 +4,10 @@
     background-color: white;
     border: 1px solid black;
     margin: 2rem;
+    padding-top: 1rem;
 }
 
-.box {
+.box span{
     display: block;
     margin: 0 auto;
     width: 50%;
@@ -15,15 +16,18 @@
     background-color: green;
     padding: .5rem;
 }
-.box:hover{
+.box span:hover{
     cursor: pointer;
     background-color: rgb(14, 156, 14);
 }
-.box > p::after {
+.box::after {
     display: block;
     margin: 0 auto;
     content: "";
     width: 2px;
     height: 1rem;
-    background-color: black;
+    background-color: black; 
+}
+.box:last-child::after{
+    display: none;
 }

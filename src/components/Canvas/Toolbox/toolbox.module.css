@@ -1,0 +1,14 @@
+.Toolbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.bottom {
+    background-color: red;
+}
+
+.side {
+    background-color: blue;
+}

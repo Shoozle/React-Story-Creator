@@ -5,13 +5,13 @@ import Toolbox from './Toolbox/Toolbox';
 
 
 const Canvas = (props) => {
-    
+
     const canvasRef = useRef(null);
     const textRef = useRef(null);
     const [painting, setPainting] = useState(false);
     const storyContext = useContext(StoryContext);
     const { pages } = storyContext.storyState;
-    const {pageNum} = props;
+    const { pageNum } = props;
     const maxPages = 20;
     const [brushSize, setBrushSize] = useState(20);
 
@@ -19,7 +19,7 @@ const Canvas = (props) => {
         const canvas = canvasRef.current;
         const storyText = textRef.current;
         const ctx = canvas.getContext('2d');
-        
+
         if (pages[pageNum].edits.length === 0) {
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, 400, 400);
@@ -27,10 +27,10 @@ const Canvas = (props) => {
         }
 
         const image = new Image();
-        image.src = pages[pageNum].edits[pages[pageNum].editIndex -1];
+        image.src = pages[pageNum].edits[pages[pageNum].editIndex - 1];
         image.onload = () => ctx.drawImage(image, 0, 0);
 
-        if (pages[pageNum].text === undefined || null) { 
+        if (pages[pageNum].text === undefined || null) {
             storyText.value = '';
         }
         storyText.value = pages[pageNum].text;
@@ -70,13 +70,13 @@ const Canvas = (props) => {
 
     const undo = () => {
         if (pages[pageNum].editIndex > 1) {
-            storyContext.dispatchStory({type: 'UNDO_PAINTING', payload: { pageNum }});
+            storyContext.dispatchStory({ type: 'UNDO_PAINTING', payload: { pageNum } });
         }
     }
 
     const redo = () => {
         if (pages[pageNum].editIndex < storyContext.storyState.pages[pageNum].edits.length) {
-            storyContext.dispatchStory({type: 'REDO_PAINTING', payload: { pageNum }});
+            storyContext.dispatchStory({ type: 'REDO_PAINTING', payload: { pageNum } });
         }
     }
 
@@ -88,7 +88,7 @@ const Canvas = (props) => {
     }
 
     const nextPage = () => {
-        if (pageNum < pages.length -1) {
+        if (pageNum < pages.length - 1) {
             props.onPageChange((prevPageNum) => prevPageNum + 1)
 
         }
@@ -110,35 +110,52 @@ const Canvas = (props) => {
     }
 
     return (
-        <div className={classes.Canvas}>
-            <canvas
-                width="400px" height="400px"
-                ref={canvasRef}
-                id="drawing-canvas"
-                onMouseDown={startPosition}
-                onMouseMove={e => {
-                    const canvas = canvasRef.current;
-                    draw(canvas, { x: e.clientX, y: e.clientY })
-                }}
-                onMouseUp={endPosition}
-                onMouseLeave={endPosition}
-            />
-            <input
-                ref={textRef}
-                type="textarea"
-                onChange={onUpdateStoryText} 
+        <div>
+
+            <h1 className={classes.pageNumber}>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
+            <div>
+                <div className={classes.drawingArea}>
+                    <div className={classes.pageButtons}>
+                        <Toolbox
+                            onPrevPage={prevPage}
+                            onNewPage={newPage}
+                            onNextPage={nextPage}
+                            placement="bottom"
+                        />
+                    </div>
+                    <div className={classes.drawingButtons}>
+                        <Toolbox
+                            onUndo={undo}
+                            onRedo={redo}
+                            onBrushSizeChange={changeBrushSize}
+                            brushSize={brushSize}
+                            placement="side"
+                        />
+                    </div>
+                    <canvas
+                        width="400px" height="400px"
+                        ref={canvasRef}
+                        id="drawing-canvas"
+                        onMouseDown={startPosition}
+                        onMouseMove={e => {
+                            const canvas = canvasRef.current;
+                            draw(canvas, { x: e.clientX, y: e.clientY })
+                        }}
+                        onMouseUp={endPosition}
+                        onMouseLeave={endPosition}
+                    />
+                </div>
+
+                <input
+                    ref={textRef}
+                    type="textarea"
+                    col="1"
+                    row="4"
+                    onChange={onUpdateStoryText}
                 />
-            <Toolbox 
-                onUndo={undo}
-                onRedo={redo}
-                onPrevPage={prevPage}
-                onNewPage={newPage}
-                onNextPage={nextPage}
-                onBrushSizeChange={changeBrushSize}
-                brushSize={brushSize}
-            />
-                <h1>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
+            </div>
         </div>
+
     )
 }
 

@@ -1,12 +1,12 @@
 .Flowchart{
-    width: 400px;
-    height: 400px;
     background-color: white;
     border: 1px solid black;
-    margin: 2rem;
     padding-top: 1rem;
     overflow: scroll;
     padding-bottom: 1rem;
+    flex-basis: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .box span{
@@ -32,4 +32,10 @@
 }
 .box:last-child::after{
     display: none;
+}
+
+@media screen and (max-width: 800px) {
+    .Flowchart {
+        min-width: 400px;
+    }
 }

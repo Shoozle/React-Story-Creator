@@ -1,0 +1,21 @@
+.Navbar{
+    color: black;
+    background-color: whitesmoke;
+    margin-bottom: 2rem;
+}
+
+.Navbar ul {
+    display: flex;
+    list-style-type: none;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.Navbar li {
+    padding: 1rem 1.4rem;
+}
+
+.Navbar li:hover{
+    background-color: grey;
+    cursor: pointer;
+}

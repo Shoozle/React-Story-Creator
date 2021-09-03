@@ -1,13 +1,23 @@
-.Canvas {
-    background-color: #242424;
-    margin: 2rem;
-}
-
 canvas {
     border-radius: 20px;
     border: 1px solid black;
+    width: 400px;
+    height: 400px;
 }
 
-h1 {
+.drawingArea{
+    display: flex;
+}
+
+.pageNumber {
+    align-self: flex-start;
+    justify-self: center;
+    flex-basis: 100%;
+    display: block;
     color: white;
+}
+
+.title{
+    width: 100%;
+    flex-basis: 100%;
 }

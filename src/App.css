@@ -1,0 +1,10 @@
+.App {
+    display: flex;
+    justify-content: space-around;
+}
+
+@media screen and (max-width: 800px) {
+    .App {
+        flex-direction: column;
+    }
+}

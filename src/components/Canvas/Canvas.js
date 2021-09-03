@@ -7,6 +7,7 @@ import Toolbox from './Toolbox/Toolbox';
 const Canvas = (props) => {
     
     const canvasRef = useRef(null);
+    const textRef = useRef(null);
     const [painting, setPainting] = useState(false);
     const storyContext = useContext(StoryContext);
     const { pages } = storyContext.storyState;
@@ -16,6 +17,7 @@ const Canvas = (props) => {
 
     useEffect(() => {
         const canvas = canvasRef.current;
+        const storyText = textRef.current;
         const ctx = canvas.getContext('2d');
         
         if (pages[pageNum].edits.length === 0) {
@@ -27,6 +29,11 @@ const Canvas = (props) => {
         const image = new Image();
         image.src = pages[pageNum].edits[pages[pageNum].editIndex -1];
         image.onload = () => ctx.drawImage(image, 0, 0);
+
+        if (pages[pageNum].text === undefined || null) { 
+            storyText.value = '';
+        }
+        storyText.value = pages[pageNum].text;
 
     }, [pages, pageNum])
 
@@ -81,17 +88,25 @@ const Canvas = (props) => {
     }
 
     const nextPage = () => {
-        if (pageNum < pages.length -1)
-        props.onPageChange((prevPageNum) => prevPageNum + 1)
+        if (pageNum < pages.length -1) {
+            props.onPageChange((prevPageNum) => prevPageNum + 1)
+
+        }
     }
 
     const prevPage = () => {
-        if (pageNum > 0) 
-        props.onPageChange((prevPageNum) => prevPageNum - 1)
+        if (pageNum > 0) {
+            props.onPageChange((prevPageNum) => prevPageNum - 1)
+        }
     }
 
     const changeBrushSize = (e) => {
         setBrushSize(e.target.value)
+    }
+
+    const onUpdateStoryText = (e) => {
+        const text = e.target.value;
+        storyContext.dispatchStory({ type: 'UPDATE_TEXT', payload: { pageNum, text } })
     }
 
     return (
@@ -108,6 +123,11 @@ const Canvas = (props) => {
                 onMouseUp={endPosition}
                 onMouseLeave={endPosition}
             />
+            <input
+                ref={textRef}
+                type="textarea"
+                onChange={onUpdateStoryText} 
+                />
             <Toolbox 
                 onUndo={undo}
                 onRedo={redo}

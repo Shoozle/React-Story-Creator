@@ -27,8 +27,14 @@ const storyReducer = (state, action) => {
         case 'ADD_PAGE':
             {
                 const oldPages = [...state.pages]
-                oldPages.push({ description: '', editIndex: 0, edits: [] })
+                oldPages.push({ text: '', editIndex: 0, edits: [] })
                 return { pages: oldPages };
+            }
+        case 'UPDATE_TEXT':
+            {
+                const oldPages = [...state.pages]
+                oldPages[pageNum].text = action.payload.text
+                return { pages: oldPages }
             }
         default:
             alert('No action for this type')

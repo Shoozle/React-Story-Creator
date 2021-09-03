@@ -35,7 +35,7 @@ const Canvas = (props) => {
         }
         storyText.value = pages[pageNum].text;
 
-    }, [pages, pageNum])
+    }, [pages, pageNum, storyContext])
 
     const startPosition = () => {
         setPainting(true)

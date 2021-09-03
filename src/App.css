@@ -2,6 +2,16 @@
     display: flex;
     justify-content: space-evenly;
     gap: 1rem;
+    margin: 0 1rem;
+}
+
+.StoryTitle{
+        display: block;
+        width: 80%;
+        margin: 0 auto;
+        font-size: 1.4rem;
+        margin-bottom: 2rem;
+        padding: .2rem .4rem;
 }
 
 @media screen and (max-width: 800px) {

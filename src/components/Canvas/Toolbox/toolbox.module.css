@@ -11,9 +11,10 @@
 }
 
 .side {
-    padding-top: 2rem;
+    padding-top: 1rem;
     color: white;
     background-color: green;
+    padding-left: .2rem;
 }
 
 @media screen and (max-width: 800px) {

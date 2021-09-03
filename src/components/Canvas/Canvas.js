@@ -81,7 +81,11 @@ const Canvas = (props) => {
     }
 
     const fill = () => {
-        
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0,0,400,400);
+        storyContext.dispatchStory({ type: 'ADD_PAINTING', payload: { pageNum, edit: canvas.toDataURL() } })    
     }
 
     const newPage = () => {
@@ -121,6 +125,7 @@ const Canvas = (props) => {
                     <Toolbox
                         onUndo={undo}
                         onRedo={redo}
+                        onFill={fill}
                         onBrushSizeChange={changeBrushSize}
                         brushSize={brushSize}
                         placement="side"

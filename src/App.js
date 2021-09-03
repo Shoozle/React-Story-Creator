@@ -16,7 +16,7 @@ function App() {
   const initialStoryState = {
     pages: [
       {
-        text: ' ',
+        text: '',
         editIndex: 0,
         edits: []
       }

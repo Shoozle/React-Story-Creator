@@ -1,5 +1,4 @@
 canvas {
-    border-radius: 20px;
     border: 1px solid black;
     width: 400px;
     height: 400px;
@@ -10,14 +9,29 @@ canvas {
 }
 
 .pageNumber {
-    align-self: flex-start;
-    justify-self: center;
-    flex-basis: 100%;
     display: block;
     color: white;
+    text-align: center;
 }
 
 .title{
     width: 100%;
     flex-basis: 100%;
+}
+
+textarea{
+    padding: .2rem .4rem;
+    resize: none;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 800px) {
+    
+    .drawingArea{
+        flex-direction: column;
+    }
+    .storyArea {
+        margin: 0 auto;
+    }
 }

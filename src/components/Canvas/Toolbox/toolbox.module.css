@@ -6,12 +6,24 @@
 }
 
 .bottom {
-
     flex-direction: row;
     justify-content: space-around
 }
 
 .side {
+    padding-top: 2rem;
     color: white;
+    background-color: green;
+}
 
+@media screen and (max-width: 800px) {
+    .side{
+        flex-direction: row;
+        justify-content: space-around;
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: transparent;
+        margin-bottom: .3rem;
+        padding-top: .3rem;
+    }
 }

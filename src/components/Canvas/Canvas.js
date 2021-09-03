@@ -80,6 +80,10 @@ const Canvas = (props) => {
         }
     }
 
+    const fill = () => {
+        
+    }
+
     const newPage = () => {
         if (pages.length < maxPages) {
             storyContext.dispatchStory({ type: 'ADD_PAGE', payload: { pageNum } })
@@ -143,11 +147,13 @@ const Canvas = (props) => {
                             placement="bottom"
                         />
                     </div>
-                    <input
+                    <textarea
                         ref={textRef}
                         type="textarea"
-                        col="1"
-                        row="4"
+                        col="30"
+                        row="12"
+                        maxLength="200"
+                        placeholder="Page writing"
                         onChange={onUpdateStoryText}
                     />
                 </div>

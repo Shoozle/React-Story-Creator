@@ -111,27 +111,26 @@ const Canvas = (props) => {
 
     return (
         <div>
-
             <h1 className={classes.pageNumber}>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
-            <div>
-                <div className={classes.drawingArea}>
-                    <div className={classes.pageButtons}>
-                        <Toolbox
-                            onPrevPage={prevPage}
-                            onNewPage={newPage}
-                            onNextPage={nextPage}
-                            placement="bottom"
-                        />
-                    </div>
-                    <div className={classes.drawingButtons}>
-                        <Toolbox
-                            onUndo={undo}
-                            onRedo={redo}
-                            onBrushSizeChange={changeBrushSize}
-                            brushSize={brushSize}
-                            placement="side"
-                        />
-                    </div>
+            <div className={classes.drawingArea}>
+                <div className={classes.pageButtons}>
+                    <Toolbox
+                        onPrevPage={prevPage}
+                        onNewPage={newPage}
+                        onNextPage={nextPage}
+                        placement="bottom"
+                    />
+                </div>
+                <div className={classes.drawingButtons}>
+                    <Toolbox
+                        onUndo={undo}
+                        onRedo={redo}
+                        onBrushSizeChange={changeBrushSize}
+                        brushSize={brushSize}
+                        placement="side"
+                    />
+                </div>
+                <div className={classes.storyArea}>
                     <canvas
                         width="400px" height="400px"
                         ref={canvasRef}
@@ -144,15 +143,14 @@ const Canvas = (props) => {
                         onMouseUp={endPosition}
                         onMouseLeave={endPosition}
                     />
+                    <input
+                        ref={textRef}
+                        type="textarea"
+                        col="1"
+                        row="4"
+                        onChange={onUpdateStoryText}
+                    />
                 </div>
-
-                <input
-                    ref={textRef}
-                    type="textarea"
-                    col="1"
-                    row="4"
-                    onChange={onUpdateStoryText}
-                />
             </div>
         </div>
 

@@ -5,10 +5,13 @@
     align-items: flex-end;
 }
 
-.Toolbox .bottom {
-    background-color: red;
+.bottom {
+
+    flex-direction: row;
+    justify-content: space-around
 }
 
 .side {
-    background-color: blue;
+    color: white;
+
 }

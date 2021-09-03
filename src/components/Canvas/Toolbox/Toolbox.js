@@ -19,12 +19,12 @@ const Toolbox = (props) => {
     const myClass = [classes.Toolbox, props.placement].join(' ');
 
     return (
-        <div className={myClass}>
+        <div className={`${classes.Toolbox} ${props.placement === 'side' ? classes.side : classes.bottom}`}>
             { onUndo && <Button onClick={onUndo} text="Undo" />}
             { onRedo && <Button onClick={onRedo} text="Redo" />}
             { onPrevPage && <Button onClick={onPrevPage} text="Previous Page" />}
-            { onNextPage && <Button onClick={onNextPage} text="Next Page" />}
             { onNewPage && <Button onClick={onNewPage} text="Add a Page" />}
+            { onNextPage && <Button onClick={onNextPage} text="Next Page" />}
             {showBrushSizer}
         </div>
     )

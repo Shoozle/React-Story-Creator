@@ -113,14 +113,6 @@ const Canvas = (props) => {
         <div>
             <h1 className={classes.pageNumber}>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
             <div className={classes.drawingArea}>
-                <div className={classes.pageButtons}>
-                    <Toolbox
-                        onPrevPage={prevPage}
-                        onNewPage={newPage}
-                        onNextPage={nextPage}
-                        placement="bottom"
-                    />
-                </div>
                 <div className={classes.drawingButtons}>
                     <Toolbox
                         onUndo={undo}
@@ -143,6 +135,14 @@ const Canvas = (props) => {
                         onMouseUp={endPosition}
                         onMouseLeave={endPosition}
                     />
+                    <div className={classes.pageButtons}>
+                        <Toolbox
+                            onPrevPage={prevPage}
+                            onNewPage={newPage}
+                            onNextPage={nextPage}
+                            placement="bottom"
+                        />
+                    </div>
                     <input
                         ref={textRef}
                         type="textarea"

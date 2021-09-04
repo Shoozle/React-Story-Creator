@@ -1,0 +1,12 @@
+div.react-colorful__hue.react-colorful__last-control > div > div {
+    width: 12px;
+    border-radius: 5px;
+}
+
+div.react-colorful__saturation > div > div {
+    border-radius: 5px;
+    width: 15px;
+    height: 15px;
+    border: 2px solid white;
+    background-color: transparent;
+}

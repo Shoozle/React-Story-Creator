@@ -14,6 +14,7 @@ const Canvas = (props) => {
     const { pageNum } = props;
     const maxPages = 20;
     const [brushSize, setBrushSize] = useState(20);
+    const [color, setColor] = useState('#ABABAB');
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -61,7 +62,7 @@ const Canvas = (props) => {
         let offsetTop = canvas.offsetTop - window.scrollY;
         ctx.lineWidth = brushSize;
         ctx.lineCap = "round";
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = color;
         ctx.lineTo(x - offsetLeft, y - offsetTop);
         ctx.stroke();
         ctx.beginPath();
@@ -83,7 +84,7 @@ const Canvas = (props) => {
     const fill = () => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = color;
         ctx.fillRect(0,0,400,400);
         storyContext.dispatchStory({ type: 'ADD_PAINTING', payload: { pageNum, edit: canvas.toDataURL() } })    
     }
@@ -98,7 +99,6 @@ const Canvas = (props) => {
     const nextPage = () => {
         if (pageNum < pages.length - 1) {
             props.onPageChange((prevPageNum) => prevPageNum + 1)
-
         }
     }
 
@@ -128,7 +128,10 @@ const Canvas = (props) => {
                         onFill={fill}
                         onBrushSizeChange={changeBrushSize}
                         brushSize={brushSize}
+                        colorPicker={brushSize}
                         placement="side"
+                        color={color}
+                        setColor={setColor}
                     />
                 </div>
                 <div className={classes.storyArea}>

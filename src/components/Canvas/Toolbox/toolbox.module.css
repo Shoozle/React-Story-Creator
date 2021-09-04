@@ -5,6 +5,10 @@
     align-items: flex-end;
 }
 
+.react-colorful { 
+    margin: 1rem;
+}
+
 .bottom {
     flex-direction: row;
     justify-content: space-around

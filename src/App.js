@@ -5,8 +5,7 @@ import Navbar from './components/UI/Navbar/Navbar';
 
 import storyReducer from './store/story';
 
-import './App.css'
-
+import './App.css';
 
 export const StoryContext = createContext();
 

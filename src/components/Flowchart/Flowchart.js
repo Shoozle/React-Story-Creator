@@ -1,11 +1,14 @@
 import classes from './flowchart.module.css'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { StoryContext } from '../../App';
+import Toolbox from '../Canvas/Toolbox/Toolbox';
+import Storybook from '../Storybook/Storybook';
 
 const Flowchart = (props) => {
 
     const storyContext = useContext(StoryContext);
     const { pages } = storyContext.storyState;
+    const [storyDisplay, setStoryDisplay] = useState(null);
 
     const pageDivs = pages.map((process, index) => {
         return (
@@ -19,9 +22,21 @@ const Flowchart = (props) => {
         )
     })
 
+    
+
+    const previewStory = () => {
+        setStoryDisplay(<Storybook />)
+    }
+
     return (
-        <div className={classes.Flowchart}>
-            {pageDivs}
+        <div className={classes.Flowchartarea}>
+            <div className={classes.Flowchart}>
+                {pageDivs}
+            </div>
+            {storyDisplay}
+            <Toolbox 
+                onPreview={previewStory}
+            />
         </div>
     )
 }

@@ -5,7 +5,7 @@ import { HexColorPicker } from 'react-colorful';
 
 const Toolbox = (props) => {
 
-    const { onUndo, onRedo, onFill, onPrevPage, onNewPage, onNextPage, brushSize, onBrushSizeChange, color, setColor } = props;
+    const { onUndo, onRedo, onFill, onPrevPage, onNewPage, onNextPage, brushSize, onBrushSizeChange, color, setColor, onPreview } = props;
 
     let brushControls;
 
@@ -27,6 +27,7 @@ const Toolbox = (props) => {
             {onPrevPage && <Button onClick={onPrevPage} text="Previous Page" />}
             {onNewPage && <Button onClick={onNewPage} text="Add a Page" />}
             {onNextPage && <Button onClick={onNextPage} text="Next Page" />}
+            {onPreview && <Button onClick={onPreview} text="Preview Story" />}
             {brushControls}
         </div>
     )

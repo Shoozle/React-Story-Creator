@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { StoryContext } from '../../App';
 import classes from './canvas.module.css'
 import Toolbox from './Toolbox/Toolbox';
-
+import Cursor from '../UI/Cursor/Cursor';
 
 const Canvas = (props) => {
 
@@ -15,11 +15,21 @@ const Canvas = (props) => {
     const maxPages = 20;
     const [brushSize, setBrushSize] = useState(20);
     const [color, setColor] = useState('#ABABAB');
+    const [inCanvas, setInCanvas] = useState(false);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const storyText = textRef.current;
         const ctx = canvas.getContext('2d');
+
+        
+        canvasRef.current.addEventListener('mouseenter', () => {
+            setInCanvas(true)
+        })
+
+        canvasRef.current.addEventListener('mousemove', () => {
+            setInCanvas(true)
+        })
 
         if (pages[pageNum].edits.length === 0) {
             ctx.fillStyle = 'white';
@@ -119,6 +129,13 @@ const Canvas = (props) => {
 
     return (
         <div>
+            <Cursor
+                inCanvas={inCanvas} 
+                painting
+                finishedPosition={endPosition}
+                brushSize={brushSize}
+                color={color}
+            />
             <h1 className={classes.pageNumber}>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
             <div className={classes.drawingArea}>
                 <div className={classes.drawingButtons}>

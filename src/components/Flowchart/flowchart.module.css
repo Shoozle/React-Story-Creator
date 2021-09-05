@@ -1,12 +1,17 @@
-.Flowchart{
-    background-color: white;
-    border: 1px solid black;
-    padding-top: 1rem;
-    overflow: scroll;
-    padding-bottom: 1rem;
+.Flowchartarea{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     flex-basis: 100%;
+}
+.Flowchart {
+    padding-top: 1rem;
+    border: 1px solid black;
+    height: 100%;
+    min-height: 400px;
     max-width: 400px;
-    max-height: 600px;
+    background-color: white;
+    overflow: scroll;
     overflow-x: hidden;
 }
 
@@ -36,7 +41,7 @@
 }
 
 @media screen and (max-width: 800px) {
-    .Flowchart {
+    .Flowchartarea {
         min-width: 400px;
         margin: 0 auto;
     }

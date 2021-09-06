@@ -14,18 +14,8 @@ const Canvas = (props) => {
     const { pageNum } = props;
     const maxPages = 20;
     const [brushSize, setBrushSize] = useState(20);
-    const [color, setColor] = useState('#ABABAB');
-    const [cursorStyle, setCursorStyle] = useState({
-        top: '',
-        left: '',
-        height: '',
-        width: '',
-        color: ''
-    });
-
-    const toggleCursor = () => {
-        
-    }
+    const [color, setColor] = useState('#000');
+    const [cursorStyle, setCursorStyle] = useState({});
 
     const updateCursor = (e) => {
         setCursorStyle({
@@ -37,14 +27,18 @@ const Canvas = (props) => {
         })
     }
 
+    const toggleCursor = () => {
+        setCursorStyle({
+            display: 'none'
+        })
+    }
+
     useEffect(() => {
         const canvas = canvasRef.current;
         const storyText = textRef.current;
         const ctx = canvas.getContext('2d');
 
-        canvas.addEventListener("mouseenter", toggleCursor);
-        canvas.addEventListener("mouseleave", toggleCursor);
-        canvas.addEventListener("mousemove", updateCursor);
+
         
         if (pages[pageNum].edits.length === 0) {
             ctx.fillStyle = 'white';
@@ -134,7 +128,7 @@ const Canvas = (props) => {
     }
 
     const changeBrushSize = (e) => {
-        setBrushSize(e.target.value)
+        setBrushSize(e.target.value);
     }
 
     const onUpdateStoryText = (e) => {
@@ -167,9 +161,15 @@ const Canvas = (props) => {
                         width="400px" height="400px"
                         ref={canvasRef}
                         id="drawing-canvas"
-                        onMouseDown={startPosition}
+                        onMouseEnter={ e =>
+                            updateCursor(e)
+                        }
+                        onMouseDown={
+                            startPosition
+                        }
                         onMouseMove={e => {
                             const canvas = canvasRef.current;
+                            updateCursor(e)
                             draw(canvas, { x: e.clientX, y: e.clientY })
                         }}
                         onMouseUp={endPosition}

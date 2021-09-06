@@ -39,7 +39,7 @@ const Canvas = (props) => {
         const ctx = canvas.getContext('2d');
 
 
-        
+
         if (pages[pageNum].edits.length === 0) {
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, 400, 400);
@@ -69,6 +69,9 @@ const Canvas = (props) => {
             storyContext.dispatchStory({ type: 'ADD_PAINTING', payload: { pageNum, edit: canvas.toDataURL() } })
         }
         setPainting(false);
+        setCursorStyle({
+            display: 'none'
+        })
     }
 
     const draw = (canvas, location) => {
@@ -104,8 +107,8 @@ const Canvas = (props) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         ctx.fillStyle = color;
-        ctx.fillRect(0,0,400,400);
-        storyContext.dispatchStory({ type: 'ADD_PAINTING', payload: { pageNum, edit: canvas.toDataURL() } })    
+        ctx.fillRect(0, 0, 400, 400);
+        storyContext.dispatchStory({ type: 'ADD_PAINTING', payload: { pageNum, edit: canvas.toDataURL() } })
     }
 
     const newPage = () => {
@@ -129,6 +132,13 @@ const Canvas = (props) => {
 
     const changeBrushSize = (e) => {
         setBrushSize(e.target.value);
+        setCursorStyle({
+            top: e.pageY - (e.target.value / 2),
+            left: e.pageX - (e.target.value / 2),
+            height: e.target.value,
+            width: e.target.value,
+            border: `1px solid ${color}`
+        })
     }
 
     const onUpdateStoryText = (e) => {
@@ -138,7 +148,7 @@ const Canvas = (props) => {
 
     return (
         <div>
-            <Cursor 
+            <Cursor
                 cursorStyle={cursorStyle}
             />
             <h1 className={classes.pageNumber}>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
@@ -161,12 +171,8 @@ const Canvas = (props) => {
                         width="400px" height="400px"
                         ref={canvasRef}
                         id="drawing-canvas"
-                        onMouseEnter={ e =>
-                            updateCursor(e)
-                        }
-                        onMouseDown={
-                            startPosition
-                        }
+                        onMouseEnter={e => updateCursor(e)}
+                        onMouseDown={startPosition}
                         onMouseMove={e => {
                             const canvas = canvasRef.current;
                             updateCursor(e)

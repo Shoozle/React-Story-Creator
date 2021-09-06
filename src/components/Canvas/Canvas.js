@@ -15,22 +15,37 @@ const Canvas = (props) => {
     const maxPages = 20;
     const [brushSize, setBrushSize] = useState(20);
     const [color, setColor] = useState('#ABABAB');
-    const [inCanvas, setInCanvas] = useState(false);
+    const [cursorStyle, setCursorStyle] = useState({
+        top: '',
+        left: '',
+        height: '',
+        width: '',
+        color: ''
+    });
+
+    const toggleCursor = () => {
+        
+    }
+
+    const updateCursor = (e) => {
+        setCursorStyle({
+            top: e.pageY - (brushSize / 2),
+            left: e.pageX - (brushSize / 2),
+            height: brushSize,
+            width: brushSize,
+            border: `1px solid ${color}`
+        })
+    }
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const storyText = textRef.current;
         const ctx = canvas.getContext('2d');
 
+        canvas.addEventListener("mouseenter", toggleCursor);
+        canvas.addEventListener("mouseleave", toggleCursor);
+        canvas.addEventListener("mousemove", updateCursor);
         
-        canvasRef.current.addEventListener('mouseenter', () => {
-            setInCanvas(true)
-        })
-
-        canvasRef.current.addEventListener('mousemove', () => {
-            setInCanvas(true)
-        })
-
         if (pages[pageNum].edits.length === 0) {
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, 400, 400);
@@ -129,12 +144,8 @@ const Canvas = (props) => {
 
     return (
         <div>
-            <Cursor
-                inCanvas={inCanvas} 
-                painting
-                finishedPosition={endPosition}
-                brushSize={brushSize}
-                color={color}
+            <Cursor 
+                cursorStyle={cursorStyle}
             />
             <h1 className={classes.pageNumber}>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
             <div className={classes.drawingArea}>

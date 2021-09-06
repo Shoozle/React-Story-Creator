@@ -21,8 +21,8 @@ const Canvas = (props) => {
         setCursorStyle({
             top: e.pageY - (brushSize / 2),
             left: e.pageX - (brushSize / 2),
-            height: brushSize,
-            width: brushSize,
+            height: `${brushSize}px`,
+            width: `${brushSize}px`,
             border: `1px solid ${color}`
         })
     }
@@ -135,9 +135,10 @@ const Canvas = (props) => {
         setCursorStyle({
             top: e.pageY - (e.target.value / 2),
             left: e.pageX - (e.target.value / 2),
-            height: e.target.value,
-            width: e.target.value,
-            border: `1px solid ${color}`
+            height: `${e.target.value}px`,
+            width: `${e.target.value}px`,
+            border: `1px solid ${color}`,
+            display: 'none'
         })
     }
 

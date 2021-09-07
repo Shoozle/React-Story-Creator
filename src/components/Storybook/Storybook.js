@@ -1,26 +1,52 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { StoryContext } from '../../App';
 import classes from './storybook.module.css';
 
 const Storybook = () => {
 
-    const [pagesDisplay, setPagesDisplay] = useState(1);
+    
+    const storyCtx = useContext(StoryContext);
+    const {storyState, dispatchStory} = storyCtx;
+    const firstCanvasRef = useRef(null);
+    const secondCanvasRef = useRef(null);
 
-    const setPagesToDisplay = () => {
-        if (window.outerWidth < 800) {
-            setPagesDisplay(1)
-        } else {
-            setPagesDisplay(2)
-        }
-        console.log(pagesDisplay)
-    }
+    console.log(storyState);
+
+    const [index, setIndex] = useState(0);
+    const [firstPage, setFirstPage] = useState({});
+
+    let secondPage;
 
     useEffect(() => {
-        document.addEventListener('resize', setPagesToDisplay)
-    }, [])
+
+        const firstPageCanvas = firstCanvasRef.current;
+        const firstPageCtx = firstPageCanvas.getContext('2d');
+        const imageSrc = storyState.pages[index].edits[storyState.pages[index].edits.length - 1];
+
+        setFirstPage({
+            imageSrc : imageSrc,
+            text : storyState.pages[index].text
+        })
+
+        const image = new Image();
+        image.src = imageSrc
+        image.onload = () => firstPageCtx.drawImage(image, 0, 0);
+
+
+    }, [index])
+
 
     return (
-        <div className={classes.storyBook}>
-            <h1>HELLO</h1>
+        <div className={classes.storybook}>
+            <div className={classes.bookSection}>
+                <div className={classes.page}>
+                    <canvas width="400px" height="400px" ref={firstCanvasRef}/>
+                    <p>{firstPage.text}</p>
+                </div>
+                <div className={classes.page}>
+                    <canvas ref={secondCanvasRef}/>
+                </div>
+            </div>
         </div>
     )
 }

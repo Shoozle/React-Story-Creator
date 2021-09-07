@@ -168,7 +168,7 @@ const Canvas = (props) => {
                     />
                 </div>
                 <div className={classes.storyArea}>
-                    <canvas
+                    <canvas className={classes.canvas}
                         width="400px" height="400px"
                         ref={canvasRef}
                         id="drawing-canvas"

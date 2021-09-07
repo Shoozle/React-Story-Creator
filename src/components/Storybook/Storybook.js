@@ -1,6 +1,7 @@
-import { getThemeProps } from "@material-ui/styles";
 import { useContext, useEffect, useRef, useState } from "react";
 import { StoryContext } from '../../App';
+import Button from '../UI/Button/Button';
+
 import classes from './storybook.module.css';
 
 const Storybook = (props) => {
@@ -15,23 +16,35 @@ const Storybook = (props) => {
 
     const [index, setIndex] = useState(0);
     const [firstPage, setFirstPage] = useState({});
-
-    let secondPage;
+    const [secondPage, setSecondPage] = useState({});
 
     useEffect(() => {
 
         const firstPageCanvas = firstCanvasRef.current;
         const firstPageCtx = firstPageCanvas.getContext('2d');
-        const imageSrc = storyState.pages[index].edits[storyState.pages[index].edits.length - 1];
+        const firstimageSrc = storyState.pages[index].edits[storyState.pages[index].edits.length - 1];
+
+        // const secondPageCanvas = secondCanvasRef.current;
+        // const secondPageCtx = secondPageCanvas.getContext('2d');
+        // const secondimageSrc = storyState.pages[index + 1].edits[storyState.pages[index].edits.length - 1];
 
         setFirstPage({
-            imageSrc : imageSrc,
+            imageSrc : firstimageSrc,
             text : storyState.pages[index].text
         })
 
-        const image = new Image();
-        image.src = imageSrc
-        image.onload = () => firstPageCtx.drawImage(image, 0, 0);
+        // setSecondPage({
+        //     imageSrc : secondimageSrc,
+        //     text : storyState.pages[index].text
+        // })
+
+        const firstImage = new Image();
+        firstImage.src = firstimageSrc
+        firstImage.onload = () => firstPageCtx.drawImage(firstImage, 0, 0);
+
+        // const secondImage = new Image();
+        // secondImage.src = secondimageSrc
+        // secondImage.onload = () => secondPageCtx.drawImage(secondImage, 0, 0);
 
 
     }, [index])
@@ -39,10 +52,12 @@ const Storybook = (props) => {
 
     return (
         <div onClick={props.onClose} className={classes.storybook}>
+            <h1>{storyState.title}</h1>
             <div className={classes.bookSection}>
                 <div className={classes.page}>
                     <canvas width="400px" height="400px" ref={firstCanvasRef}/>
                     <p>{firstPage.text}</p>
+                    <Button text="Previous Page"></Button>
                 </div>
                 <div className={classes.page}>
                     <canvas width="400px" height="400px" ref={secondCanvasRef}/>

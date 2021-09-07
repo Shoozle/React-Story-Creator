@@ -6,6 +6,9 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.2);
     z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .bookSection{
@@ -13,8 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-basis: 100%;
+    padding: 5rem;
 }
 
-.page{
-    min-height: 500px;
-}

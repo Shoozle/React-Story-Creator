@@ -8,13 +8,13 @@ const storyReducer = (state, action) => {
             {
                 const oldPages = [...state.pages]
                 oldPages[pageNum].editIndex--;
-                return { pages: oldPages }
+                return { ...state, pages: oldPages }
             }
         case 'REDO_PAINTING':
             {
                 const oldPages = [...state.pages]
                 oldPages[pageNum].editIndex++;
-                return { pages: oldPages }
+                return { ...state, pages: oldPages }
             }
         case 'ADD_PAINTING':
             {
@@ -22,19 +22,19 @@ const storyReducer = (state, action) => {
                 oldPages[pageNum].edits.splice(oldPages[pageNum].editIndex)
                 pages[pageNum].edits.push(edit);
                 pages[pageNum].editIndex++;
-                return { pages: oldPages }
+                return { ...state, pages: oldPages }
             }
         case 'ADD_PAGE':
             {
                 const oldPages = [...state.pages]
                 oldPages.push({ text: '', editIndex: 0, edits: [] })
-                return { pages: oldPages };
+                return { ...state, pages: oldPages };
             }
         case 'UPDATE_TEXT':
             {
                 const oldPages = [...state.pages]
                 oldPages[pageNum].text = action.payload.text
-                return { pages: oldPages }
+                return { ...state, pages: oldPages }
             }
             case 'UPDATE_TITLE':
                 {

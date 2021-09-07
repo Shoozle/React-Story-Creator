@@ -1,8 +1,9 @@
+import { getThemeProps } from "@material-ui/styles";
 import { useContext, useEffect, useRef, useState } from "react";
 import { StoryContext } from '../../App';
 import classes from './storybook.module.css';
 
-const Storybook = () => {
+const Storybook = (props) => {
 
     
     const storyCtx = useContext(StoryContext);
@@ -37,14 +38,14 @@ const Storybook = () => {
 
 
     return (
-        <div className={classes.storybook}>
+        <div onClick={props.onClose} className={classes.storybook}>
             <div className={classes.bookSection}>
                 <div className={classes.page}>
                     <canvas width="400px" height="400px" ref={firstCanvasRef}/>
                     <p>{firstPage.text}</p>
                 </div>
                 <div className={classes.page}>
-                    <canvas ref={secondCanvasRef}/>
+                    <canvas width="400px" height="400px" ref={secondCanvasRef}/>
                 </div>
             </div>
         </div>

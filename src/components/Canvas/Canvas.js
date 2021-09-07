@@ -147,6 +147,8 @@ const Canvas = (props) => {
         storyContext.dispatchStory({ type: 'UPDATE_TEXT', payload: { pageNum, text } })
     }
 
+
+
     return (
         <div>
             <Cursor

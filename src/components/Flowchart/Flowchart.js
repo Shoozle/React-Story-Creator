@@ -22,10 +22,12 @@ const Flowchart = (props) => {
         )
     })
 
-    
+    const closeStoryHandler = () => {
+        setStoryDisplay(null);
+    }
 
     const previewStory = () => {
-        setStoryDisplay(<Storybook />)
+        setStoryDisplay(<Storybook onClose={closeStoryHandler}/>)
     }
 
     return (

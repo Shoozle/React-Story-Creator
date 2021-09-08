@@ -9,7 +9,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
 
+
+.bookSection{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(53, 53, 16);
+    justify-content: center;
+    align-items: center;
+    flex-basis: 100%;
+    padding: 2rem;
 }
 
 .storyTitle{
@@ -19,13 +29,23 @@
     margin-bottom: 2rem;
 }
 
-.bookSection{
-    flex-wrap: wrap;
-    background-color: green;
+.pageArea{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-basis: 100%;
-    padding: 2rem;
 }
 
+.page{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+canvas{
+    margin-bottom: 2rem;
+}
+
+.buttonArea{
+    display: flex;
+    flex-basis: 100%;
+    margin-top: 1rem;
+    justify-content: space-between;
+}

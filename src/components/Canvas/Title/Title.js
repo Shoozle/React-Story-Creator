@@ -5,7 +5,7 @@ import classes from './title.module.css'
 
 const Title = () => {
 
-    const maxLength = 40;
+    const maxLength = 80;
     const [title, setTitle] = useState('');
     const storyContext = useContext(StoryContext);
 
@@ -20,7 +20,7 @@ const Title = () => {
             onChange={onChangeHandler} 
             maxLength={maxLength} 
             className={classes.Title}
-                
+
             />
     )
 

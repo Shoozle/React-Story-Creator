@@ -6,13 +6,12 @@ import classes from './storybook.module.css';
 
 const Storybook = (props) => {
 
-    
-    const storyCtx = useContext(StoryContext);
-    const {storyState, dispatchStory} = storyCtx;
+    const storyContext = useContext(StoryContext);
+    const {storyState, dispatchStory} = storyContext;
     const firstCanvasRef = useRef(null);
     const secondCanvasRef = useRef(null);
 
-    console.log(storyState);
+    console.log('storybook', storyState);
 
     const [index, setIndex] = useState(0);
     const [firstPage, setFirstPage] = useState({});
@@ -52,8 +51,9 @@ const Storybook = (props) => {
 
     return (
         <div onClick={props.onClose} className={classes.storybook}>
-            <h1>{storyState.title}</h1>
+
             <div className={classes.bookSection}>
+            <h1 className={classes.storyTitle}>{storyState.title}</h1>
                 <div className={classes.page}>
                     <canvas width="400px" height="400px" ref={firstCanvasRef}/>
                     <p>{firstPage.text}</p>

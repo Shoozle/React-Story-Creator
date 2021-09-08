@@ -27,18 +27,10 @@ const Canvas = (props) => {
         })
     }
 
-    const toggleCursor = () => {
-        setCursorStyle({
-            display: 'none'
-        })
-    }
-
     useEffect(() => {
         const canvas = canvasRef.current;
         const storyText = textRef.current;
         const ctx = canvas.getContext('2d');
-
-
 
         if (pages[pageNum].edits.length === 0) {
             ctx.fillStyle = 'white';
@@ -146,8 +138,6 @@ const Canvas = (props) => {
         const text = e.target.value;
         storyContext.dispatchStory({ type: 'UPDATE_TEXT', payload: { pageNum, text } })
     }
-
-
 
     return (
         <div>

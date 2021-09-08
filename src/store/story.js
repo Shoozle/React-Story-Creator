@@ -36,11 +36,11 @@ const storyReducer = (state, action) => {
                 oldPages[pageNum].text = action.payload.text
                 return { ...state, pages: oldPages }
             }
-            case 'UPDATE_TITLE':
-                {
-                    state.title = action.payload.title;
-                    return { ...state }
-                }
+        case 'UPDATE_TITLE':
+            {
+                const newTitle = action.payload.title;
+                return { ...state, title: newTitle}
+            }
         default:
             alert('No action for this type')
     }

@@ -6,15 +6,16 @@ import Navbar from './components/UI/Navbar/Navbar';
 import storyReducer from './store/story';
 
 import './App.css';
+import Title from './components/Canvas/Title/Title';
 
 export const StoryContext = createContext();
 
 function App() {
 
-  const [storyTitle, setStoryTitle] = useState('');
+
 
   const initialStoryState = {
-    title: storyTitle,
+    title: '',
     pages: [
       {
         text: '',
@@ -32,9 +33,6 @@ function App() {
 
   const [storyState, dispatchStory] = useReducer(storyReducer, initialStoryState)
 
-  const onUpdateTitle = (e) => {
-    setStoryTitle(e.target.value)
-  }
 
   return (
     <>
@@ -44,13 +42,7 @@ function App() {
           storyState,
           dispatchStory
         }}>
-        <input
-          className="StoryTitle"
-          placeholder="Story title"
-          type="text"
-          onChange={onUpdateTitle}
-          value={storyTitle}
-        />
+        <Title/>
         <div className="App">
           <Canvas pageNum={pageNum} onPageChange={changePageHandler} />
           <Flowchart pageNum={pageNum} onPageChange={changePageHandler} />

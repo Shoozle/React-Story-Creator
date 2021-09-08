@@ -10,6 +10,8 @@ const Flowchart = (props) => {
     const { pages } = storyContext.storyState;
     const [storyDisplay, setStoryDisplay] = useState(null);
 
+    console.log(props);
+
     const pageDivs = pages.map((process, index) => {
         return (
             <div

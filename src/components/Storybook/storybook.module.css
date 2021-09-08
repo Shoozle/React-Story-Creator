@@ -9,14 +9,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+
+.storyTitle{
+    flex-basis: 100%;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .bookSection{
+    flex-wrap: wrap;
     background-color: green;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-basis: 100%;
-    padding: 5rem;
+    padding: 2rem;
 }
 

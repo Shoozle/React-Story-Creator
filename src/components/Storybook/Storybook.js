@@ -52,7 +52,7 @@ const Storybook = (props) => {
 
     firstPageDisplay = (
         <div className={classes.page}>
-            <canvas width="400px" height="400px" ref={firstCanvasRef} />
+            <canvas width="400px" height="400px" ref={firstCanvasRef} className={classes.canvas}/>
             <p>{firstPage.text}</p>
 
         </div>
@@ -60,7 +60,7 @@ const Storybook = (props) => {
 
     secondPageDisplay = (
         <div className={classes.page}>
-            <canvas width="400px" height="400px" ref={secondCanvasRef} />
+            <canvas width="400px" height="400px" ref={secondCanvasRef} className={classes.canvas}/>
             <p>{secondPage.text}</p>
         </div>
     )

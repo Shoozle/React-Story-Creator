@@ -31,6 +31,7 @@
 
 .pageArea{
     display: flex;
+    gap: 1rem;
 }
 
 .page{
@@ -39,7 +40,7 @@
     justify-content: space-around;
 }
 
-canvas{
+.canvas{
     margin-bottom: 2rem;
 }
 

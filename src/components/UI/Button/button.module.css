@@ -1,0 +1,28 @@
+.Button {
+    position: relative;
+    outline: none;
+    border: none;
+    background-color: rgb(132, 179, 132);
+	height: 30px;
+	text-align: center;
+	cursor: pointer;
+    padding: .2rem .4rem;
+    min-width: 80px;
+    margin-bottom: .7rem;
+    margin-top: .2rem;
+    transition: all .3s;
+}
+
+.Button:hover {
+    padding-right: 20px;
+}
+
+@keyframes buttonHover {
+    0% {
+
+    }
+
+    100% {
+        border-bottom: 2px solid black;
+    }
+}

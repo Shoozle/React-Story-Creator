@@ -7,7 +7,7 @@ import classes from './storybook.module.css';
 const Storybook = (props) => {
 
     const storyContext = useContext(StoryContext);
-    const { storyState, dispatchStory } = storyContext;
+    const { storyState } = storyContext;
     const firstCanvasRef = useRef(null);
     const secondCanvasRef = useRef(null);
 
@@ -15,23 +15,31 @@ const Storybook = (props) => {
     const [firstPage, setFirstPage] = useState({});
     const [secondPage, setSecondPage] = useState({});
 
-    const [err, setErr] = useState(false);
+    const [displaySecondPage, setDisplaySecondPage] = useState(false);
+    const [displayTwoPages, setDisplayTwoPages] = useState(true)
 
-    useEffect(() => { 
-        try {
-            const firstPageCanvas = firstCanvasRef.current;
-            const firstPageCtx = firstPageCanvas.getContext('2d');
-            const firstimageSrc = storyState.pages[index].edits[storyState.pages[index].edits.length - 1];
-    
-            setFirstPage({
-                imageSrc: firstimageSrc,
-                text: storyState.pages[index].text
-            })
-    
-            const firstImage = new Image();
-            firstImage.src = firstimageSrc
-            firstImage.onload = () => firstPageCtx.drawImage(firstImage, 0, 0);
+    useEffect(() => {
 
+        if (storyState.pages.length === 1) {
+            setDisplaySecondPage(false)
+        } else {
+            setDisplaySecondPage(true)
+        }
+
+        const firstPageCanvas = firstCanvasRef.current;
+        const firstPageCtx = firstPageCanvas.getContext('2d');
+        const firstimageSrc = storyState.pages[index].edits[storyState.pages[index].edits.length - 1];
+
+        setFirstPage({
+            imageSrc: firstimageSrc,
+            text: storyState.pages[index].text
+        })
+
+        const firstImage = new Image();
+        firstImage.src = firstimageSrc
+        firstImage.onload = () => firstPageCtx.drawImage(firstImage, 0, 0);
+
+        if (displaySecondPage) {
             const secondPageCanvas = secondCanvasRef.current;
             const secondPageCtx = secondPageCanvas.getContext('2d');
             const secondimageSrc = storyState.pages[index + 1].edits[storyState.pages[index + 1].edits.length - 1];
@@ -44,15 +52,12 @@ const Storybook = (props) => {
             const secondImage = new Image();
             secondImage.src = secondimageSrc
             secondImage.onload = () => secondPageCtx.drawImage(secondImage, 0, 0);
-
-            setErr(false)
-        } catch (err) {
-            setErr(true)
         }
 
-    }, [index, err])
 
-    
+    }, [index])
+
+
     let firstPageDisplay;
     let secondPageDisplay;
 
@@ -64,17 +69,19 @@ const Storybook = (props) => {
         </div>
     )
 
-    secondPageDisplay = (
-        <div className={classes.page}>
-            <canvas width="400px" height="400px" ref={secondCanvasRef} className={classes.canvas} />
-            <p>{secondPage.text}</p>
-        </div>
-    )
-
-    console.log(err)
+    if (displaySecondPage) {
+        secondPageDisplay = (
+            <div className={classes.page}>
+                <canvas width="400px" height="400px" ref={secondCanvasRef} className={classes.canvas} />
+                <p>{secondPage.text}</p>
+            </div>
+        )
+    } else {
+        secondPageDisplay = null;
+    }
 
     const nextPage = () => {
-        if (index < storyState.pages.length -1)
+        if (index < storyState.pages.length - 1)
             setIndex(index + 2)
     }
 
@@ -90,7 +97,7 @@ const Storybook = (props) => {
                 <h1 className={classes.storyTitle}>{storyState.title}</h1>
                 <div className={classes.pageArea}>
                     {firstPageDisplay}
-                    {!err && secondPageDisplay}
+                    {displaySecondPage && secondPageDisplay}
                 </div>
 
                 <div className={classes.buttonArea}>

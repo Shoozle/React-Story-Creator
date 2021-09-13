@@ -14,17 +14,9 @@ const Storybook = (props) => {
     const [index, setIndex] = useState(0);
     const [firstPage, setFirstPage] = useState({});
     const [secondPage, setSecondPage] = useState({});
-
-    const [displaySecondPage, setDisplaySecondPage] = useState(false);
-    const [displayTwoPages, setDisplayTwoPages] = useState(true)
+    const [hideSecondPage, setHideSecondPage] = useState(false);
 
     useEffect(() => {
-
-        if (storyState.pages.length === 1) {
-            setDisplaySecondPage(false)
-        } else {
-            setDisplaySecondPage(true)
-        }
 
         const firstPageCanvas = firstCanvasRef.current;
         const firstPageCtx = firstPageCanvas.getContext('2d');
@@ -39,22 +31,22 @@ const Storybook = (props) => {
         firstImage.src = firstimageSrc
         firstImage.onload = () => firstPageCtx.drawImage(firstImage, 0, 0);
 
-        if (displaySecondPage) {
+        try {
             const secondPageCanvas = secondCanvasRef.current;
             const secondPageCtx = secondPageCanvas.getContext('2d');
             const secondimageSrc = storyState.pages[index + 1].edits[storyState.pages[index + 1].edits.length - 1];
-
+    
             setSecondPage({
                 imageSrc: secondimageSrc,
                 text: storyState.pages[index + 1].text
             })
-
+    
             const secondImage = new Image();
             secondImage.src = secondimageSrc
             secondImage.onload = () => secondPageCtx.drawImage(secondImage, 0, 0);
+        } catch (err) {
+            setHideSecondPage(true)
         }
-
-
     }, [index])
 
 
@@ -69,25 +61,28 @@ const Storybook = (props) => {
         </div>
     )
 
-    if (displaySecondPage) {
-        secondPageDisplay = (
-            <div className={classes.page}>
-                <canvas width="400px" height="400px" ref={secondCanvasRef} className={classes.canvas} />
-                <p>{secondPage.text}</p>
-            </div>
-        )
-    } else {
-        secondPageDisplay = null;
-    }
+    secondPageDisplay = (
+        <div className={classes.page}>
+            <canvas width="400px" height="400px" ref={secondCanvasRef} className={classes.canvas} />
+            <p>{secondPage.text}</p>
+        </div>
+    )
 
     const nextPage = () => {
-        if (index < storyState.pages.length - 1)
-            setIndex(index + 2)
+        if (index < storyState.pages.length - 2) {
+                if ((storyState.pages.length % 2 === 1) && (index === storyState.pages.length - 2)) {
+                    console.log('HEY REMAINER')
+                }
+                setIndex(index + 2)
+            }
+            
     }
 
     const prevPage = () => {
-        if (index >= 2)
+        if (index >= 2) {
             setIndex(index - 2)
+            setHideSecondPage(false)
+        }
     }
 
     return (
@@ -97,7 +92,7 @@ const Storybook = (props) => {
                 <h1 className={classes.storyTitle}>{storyState.title}</h1>
                 <div className={classes.pageArea}>
                     {firstPageDisplay}
-                    {displaySecondPage && secondPageDisplay}
+                    {!hideSecondPage && secondPageDisplay}
                 </div>
 
                 <div className={classes.buttonArea}>

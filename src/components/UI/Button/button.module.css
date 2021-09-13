@@ -10,19 +10,5 @@
     min-width: 80px;
     margin-bottom: .7rem;
     margin-top: .2rem;
-    transition: all .3s;
 }
 
-.Button:hover {
-    padding-right: 20px;
-}
-
-@keyframes buttonHover {
-    0% {
-
-    }
-
-    100% {
-        border-bottom: 2px solid black;
-    }
-}

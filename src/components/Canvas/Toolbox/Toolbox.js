@@ -12,8 +12,11 @@ const Toolbox = (props) => {
     if (onBrushSizeChange) {
         brushControls = (
             <>
+                <fieldset>
                 <label htmlFor="size">Brush Size</label>
                 <input type="range" id="size" value={brushSize} min="1" max="60" onChange={(e) => onBrushSizeChange(e)}></input>
+                </fieldset>
+
                 <HexColorPicker className={classes.colorful} color={color} onChange={setColor} />
             </>
         )
@@ -21,14 +24,16 @@ const Toolbox = (props) => {
 
     return (
         <div className={`${classes.Toolbox} ${props.placement === 'side' ? classes.side : classes.bottom}`}>
-            {onUndo && <Button onClick={onUndo} text="Undo" />}
-            {onFill && <Button onClick={onFill} text="Fill" />}
-            {onRedo && <Button onClick={onRedo} text="Redo" />}
+                {onUndo && <Button onClick={onUndo} text="Undo" />}
+                {onFill && <Button onClick={onFill} text="Fill" />}
+                {onRedo && <Button onClick={onRedo} text="Redo" />}
+                {brushControls}
+
             {onPrevPage && <Button onClick={onPrevPage} text="Previous Page" />}
             {onNewPage && <Button onClick={onNewPage} text="Add a Page" />}
             {onNextPage && <Button onClick={onNextPage} text="Next Page" />}
             {onPreview && <Button onClick={onPreview} text="Preview Story" />}
-            {brushControls}
+
         </div>
     )
 }

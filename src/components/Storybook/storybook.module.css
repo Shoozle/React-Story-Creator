@@ -38,6 +38,16 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    transition: all 2s; 
+}
+
+@keyframes pageFade {
+    0% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }
 
 .canvas{

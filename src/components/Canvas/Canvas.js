@@ -18,6 +18,7 @@ const Canvas = (props) => {
     const [cursorStyle, setCursorStyle] = useState({});
 
     const updateCursor = (e) => {
+        e.preventDefault();
         setCursorStyle({
             top: e.pageY - (brushSize / 2),
             left: e.pageX - (brushSize / 2),
@@ -49,11 +50,13 @@ const Canvas = (props) => {
 
     }, [pages, pageNum, storyContext])
 
-    const startPosition = () => {
+    const startPosition = (e) => {
+        e.preventDefault();
         setPainting(true)
     }
 
     const endPosition = (e) => {
+        e.preventDefault();
         if (painting) {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
@@ -144,7 +147,7 @@ const Canvas = (props) => {
             <Cursor
                 cursorStyle={cursorStyle}
             />
-            <h1 className={classes.pageNumber}>Page {pageNum + 1} of {storyContext.storyState.pages.length}</h1>
+            
             <div className={classes.drawingArea}>
                 <div className={classes.drawingButtons}>
                     <Toolbox
@@ -174,6 +177,7 @@ const Canvas = (props) => {
                         onMouseUp={endPosition}
                         onMouseLeave={endPosition}
                     />
+                    <p className={classes.pageNumber}>Page {pageNum + 1} of {storyContext.storyState.pages.length}</p>
                     <div className={classes.pageButtons}>
                         <Toolbox
                             onPrevPage={prevPage}

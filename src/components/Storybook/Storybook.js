@@ -47,7 +47,7 @@ const Storybook = (props) => {
         } catch (err) {
             setHideSecondPage(true)
         }
-    }, [index])
+    }, [index, storyState.pages])
 
 
     let firstPageDisplay;

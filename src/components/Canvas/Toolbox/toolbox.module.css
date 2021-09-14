@@ -30,5 +30,6 @@
         background-color: transparent;
         margin-bottom: .3rem;
         padding-top: .3rem;
+        flex-wrap: wrap;
     }
 }

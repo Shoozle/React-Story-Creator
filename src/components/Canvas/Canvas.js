@@ -18,7 +18,6 @@ const Canvas = (props) => {
     const [cursorStyle, setCursorStyle] = useState({});
 
     const updateCursor = (e) => {
-        e.preventDefault();
         setCursorStyle({
             top: e.pageY - (brushSize / 2),
             left: e.pageX - (brushSize / 2),
@@ -50,13 +49,13 @@ const Canvas = (props) => {
 
     }, [pages, pageNum, storyContext])
 
-    const startPosition = (e) => {
-        e.preventDefault();
+    const startPosition = () => {
+
         setPainting(true)
     }
 
-    const endPosition = (e) => {
-        e.preventDefault();
+    const endPosition = () => {
+
         if (painting) {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
@@ -127,14 +126,6 @@ const Canvas = (props) => {
 
     const changeBrushSize = (e) => {
         setBrushSize(e.target.value);
-        setCursorStyle({
-            top: e.pageY - (e.target.value / 2),
-            left: e.pageX - (e.target.value / 2),
-            height: `${e.target.value}px`,
-            width: `${e.target.value}px`,
-            border: `1px solid ${color}`,
-            display: 'none'
-        })
     }
 
     const onUpdateStoryText = (e) => {
@@ -142,25 +133,38 @@ const Canvas = (props) => {
         storyContext.dispatchStory({ type: 'UPDATE_TEXT', payload: { pageNum, text } })
     }
 
+    const sideToolbox = (
+        <Toolbox
+            onUndo={undo}
+            onRedo={redo}
+            onFill={fill}
+            onBrushSizeChange={changeBrushSize}
+            brushSize={brushSize}
+            colorPicker={brushSize}
+            placement="side"
+            color={color}
+            setColor={setColor}
+        />
+    )
+
+    const topToolbox = (
+        <Toolbox
+            onPrevPage={prevPage}
+            onNewPage={newPage}
+            onNextPage={nextPage}
+            placement="bottom"
+        />
+    )
+
     return (
         <div>
             <Cursor
                 cursorStyle={cursorStyle}
             />
-            
+
             <div className={classes.drawingArea}>
                 <div className={classes.drawingButtons}>
-                    <Toolbox
-                        onUndo={undo}
-                        onRedo={redo}
-                        onFill={fill}
-                        onBrushSizeChange={changeBrushSize}
-                        brushSize={brushSize}
-                        colorPicker={brushSize}
-                        placement="side"
-                        color={color}
-                        setColor={setColor}
-                    />
+                    {sideToolbox}
                 </div>
                 <div className={classes.storyArea}>
                     <canvas className={classes.canvas}
@@ -179,12 +183,7 @@ const Canvas = (props) => {
                     />
                     <p className={classes.pageNumber}>Page {pageNum + 1} of {storyContext.storyState.pages.length}</p>
                     <div className={classes.pageButtons}>
-                        <Toolbox
-                            onPrevPage={prevPage}
-                            onNewPage={newPage}
-                            onNextPage={nextPage}
-                            placement="bottom"
-                        />
+                        {topToolbox}
                     </div>
                     <textarea
                         ref={textRef}

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { StoryContext } from '../../App';
 import Backdrop from "../UI/Backdrop/Backdrop";
+import Modal from "../UI/Modal/Modal";
 import Button from '../UI/Button/Button';
 
 import classes from './storybook.module.css';
@@ -87,7 +88,8 @@ const Storybook = (props) => {
     }
 
     return (
-            <Backdrop show={true}>
+        <Backdrop show={true}>
+            <Modal>
                 <div className={classes.bookSection}>
                     <h1 className={classes.storyTitle}>{storyState.title}</h1>
                     <div className={classes.pageArea}>
@@ -100,7 +102,8 @@ const Storybook = (props) => {
                         <Button text="Next Page" onClick={nextPage}></Button>
                     </div>
                 </div>
-            </Backdrop>
+            </Modal>
+        </Backdrop>
     )
 }
 

@@ -161,7 +161,6 @@ const Canvas = (props) => {
             <Cursor
                 cursorStyle={cursorStyle}
             />
-
             <div className={classes.drawingArea}>
                 <div className={classes.drawingButtons}>
                     {sideToolbox}

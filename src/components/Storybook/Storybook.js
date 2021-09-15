@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { StoryContext } from '../../App';
+import Backdrop from "../UI/Backdrop/Backdrop";
 import Button from '../UI/Button/Button';
 
 import classes from './storybook.module.css';
@@ -35,12 +36,12 @@ const Storybook = (props) => {
             const secondPageCanvas = secondCanvasRef.current;
             const secondPageCtx = secondPageCanvas.getContext('2d');
             const secondimageSrc = storyState.pages[index + 1].edits[storyState.pages[index + 1].edits.length - 1];
-    
+
             setSecondPage({
                 imageSrc: secondimageSrc,
                 text: storyState.pages[index + 1].text
             })
-    
+
             const secondImage = new Image();
             secondImage.src = secondimageSrc
             secondImage.onload = () => secondPageCtx.drawImage(secondImage, 0, 0);
@@ -70,12 +71,12 @@ const Storybook = (props) => {
 
     const nextPage = () => {
         if (index < storyState.pages.length - 2) {
-                if ((storyState.pages.length % 2 === 1) && (index === storyState.pages.length - 2)) {
-                    console.log('HEY REMAINER')
-                }
-                setIndex(index + 2)
+            if ((storyState.pages.length % 2 === 1) && (index === storyState.pages.length - 2)) {
+                console.log('HEY REMAINER')
             }
-            
+            setIndex(index + 2)
+        }
+
     }
 
     const prevPage = () => {
@@ -86,22 +87,20 @@ const Storybook = (props) => {
     }
 
     return (
-        <div className={classes.storybook}>
-
-            <div className={classes.bookSection}>
-                <h1 className={classes.storyTitle}>{storyState.title}</h1>
-                <div className={classes.pageArea}>
-                    {firstPageDisplay}
-                    {!hideSecondPage && secondPageDisplay}
+            <Backdrop show={true}>
+                <div className={classes.bookSection}>
+                    <h1 className={classes.storyTitle}>{storyState.title}</h1>
+                    <div className={classes.pageArea}>
+                        {firstPageDisplay}
+                        {!hideSecondPage && secondPageDisplay}
+                    </div>
+                    <div className={classes.buttonArea}>
+                        <Button text="Previous Page" onClick={prevPage}></Button>
+                        <Button text="Close" onClick={props.onClose} />
+                        <Button text="Next Page" onClick={nextPage}></Button>
+                    </div>
                 </div>
-
-                <div className={classes.buttonArea}>
-                    <Button text="Previous Page" onClick={prevPage}></Button>
-                    <Button text="Close" onClick={props.onClose} />
-                    <Button text="Next Page" onClick={nextPage}></Button>
-                </div>
-            </div>
-        </div>
+            </Backdrop>
     )
 }
 

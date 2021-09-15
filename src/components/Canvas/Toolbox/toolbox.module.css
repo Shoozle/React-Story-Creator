@@ -21,6 +21,15 @@
     padding-left: .2rem;
 }
 
+fieldset {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+}
+
 @media screen and (max-width: 800px) {
     .side{
         flex-direction: row;

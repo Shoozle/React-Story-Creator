@@ -1,0 +1,7 @@
+.ModalOpen {
+    display: block;
+}
+
+.ModalClosed {
+    display: none;
+}

@@ -113,15 +113,11 @@ const Canvas = (props) => {
     }
 
     const nextPage = () => {
-        if (pageNum < pages.length - 1) {
             props.onPageChange((prevPageNum) => prevPageNum + 1)
-        }
     }
 
     const prevPage = () => {
-        if (pageNum > 0) {
             props.onPageChange((prevPageNum) => prevPageNum - 1)
-        }
     }
 
     const changeBrushSize = (e) => {
@@ -149,9 +145,9 @@ const Canvas = (props) => {
 
     const topToolbox = (
         <Toolbox
-            onPrevPage={prevPage}
-            onNewPage={newPage}
-            onNextPage={nextPage}
+            onPrevPage={pageNum > 0 && prevPage}
+            onNewPage={pages.length < maxPages && newPage}
+            onNextPage={pageNum < pages.length - 1 && nextPage}
             placement="bottom"
         />
     )

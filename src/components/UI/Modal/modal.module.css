@@ -1,7 +1,6 @@
 .Modal {
     z-index: 200;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 2px #ccc;
+    box-shadow: 0 2px 2px rgb(8, 7, 7);
     background-color: white;
     padding: 10px;
     margin: 10% auto;

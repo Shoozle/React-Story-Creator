@@ -46,10 +46,11 @@ const Storybook = (props) => {
             const secondImage = new Image();
             secondImage.src = secondimageSrc
             secondImage.onload = () => secondPageCtx.drawImage(secondImage, 0, 0);
+            setHideSecondPage(false);
         } catch (err) {
-            setHideSecondPage(true)
+            setHideSecondPage(true);
         }
-    }, [index, storyState.pages])
+    }, [index, storyState.pages, hideSecondPage])
 
 
     let firstPageDisplay;
@@ -58,7 +59,7 @@ const Storybook = (props) => {
     firstPageDisplay = (
         <div className={classes.page}>
             <canvas width="400px" height="400px" ref={firstCanvasRef} className={classes.canvas} />
-            <p>{firstPage.text}</p>
+            <p>{firstPage.text || 'Please enter some text for this page'}</p>
 
         </div>
     )
@@ -66,7 +67,7 @@ const Storybook = (props) => {
     secondPageDisplay = (
         <div className={classes.page}>
             <canvas width="400px" height="400px" ref={secondCanvasRef} className={classes.canvas} />
-            <p>{secondPage.text}</p>
+            <p>{secondPage.text || 'Please enter some text for this page'}</p>
         </div>
     )
 
@@ -80,10 +81,10 @@ const Storybook = (props) => {
     }
 
     return (
-        <Backdrop show={true}>
-            <Modal>
+        <Backdrop>
+            <Modal show={true}>
                 <div className={classes.bookSection}>
-                    <h1 className={classes.storyTitle}>{storyState.title}</h1>
+                    <h1 className={classes.storyTitle}>{storyState.title || 'Please enter a title for your story'}</h1>
                     <div className={classes.pageArea}>
                         {firstPageDisplay}
                         {!hideSecondPage && secondPageDisplay}

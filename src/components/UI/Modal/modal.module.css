@@ -5,12 +5,16 @@
     padding: 10px;
     margin: 10% auto;
     max-width: 70rem;
+    transition: all 3s ease-in;
 }
 
 .ModalOpen {
-    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    
 }
 
 .ModalClosed {
-    display: none;
+    opacity: 1;
+    transform: translateY(-100%);
 }

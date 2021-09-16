@@ -2,16 +2,10 @@ import classes from './backdrop.module.css';
 
 const Backdrop = (props) => {
 
-    let className;
 
-    if (props.show) {
-        className = classes.backdropOpen
-    } else {
-        className = classes.backdropClosed
-    }
 
     return (
-        <div className={[classes.backdrop, className].join(' ')}>
+        <div className={classes.backdrop}>
             {props.children}
         </div>
     )

@@ -71,20 +71,12 @@ const Storybook = (props) => {
     )
 
     const nextPage = () => {
-        if (index < storyState.pages.length - 2) {
-            if ((storyState.pages.length % 2 === 1) && (index === storyState.pages.length - 2)) {
-                console.log('HEY REMAINER')
-            }
             setIndex(index + 2)
-        }
-
     }
 
     const prevPage = () => {
-        if (index >= 2) {
             setIndex(index - 2)
             setHideSecondPage(false)
-        }
     }
 
     return (
@@ -97,9 +89,9 @@ const Storybook = (props) => {
                         {!hideSecondPage && secondPageDisplay}
                     </div>
                     <div className={classes.buttonArea}>
-                        <Button text="Previous Page" onClick={prevPage}></Button>
+                        {index >= 2 && <Button text="Previous Page" onClick={prevPage}></Button>}
                         <Button text="Close" onClick={props.onClose} />
-                        <Button text="Next Page" onClick={nextPage}></Button>
+                        {index < storyState.pages.length - 2 && <Button text="Next Page" onClick={nextPage}></Button>}
                     </div>
                 </div>
             </Modal>

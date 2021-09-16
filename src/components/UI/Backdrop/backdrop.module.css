@@ -9,16 +9,4 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 3s ease-in;
-}
-
-.backdropOpen {
-    opacity: 1;
-    transform: translateY(0);
-    
-}
-
-.backdropClosed {
-    opacity: 1;
-    transform: translateY(-100%);
 }

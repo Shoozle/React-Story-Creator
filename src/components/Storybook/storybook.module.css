@@ -27,6 +27,10 @@
     justify-content: space-around;
 }
 
+.page p {
+    color: white;
+}
+
 .canvas{
     margin-bottom: 2rem;
 }

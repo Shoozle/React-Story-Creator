@@ -10,16 +10,15 @@ const Flowchart = (props) => {
     const { pages } = storyContext.storyState;
     const [storyDisplay, setStoryDisplay] = useState(null);
 
-    console.log(props);
-
     const pageDivs = pages.map((process, index) => {
+        const text = `Page ${index + 1}`
         return (
             <div
                 key={index}
                 className={classes.box}
                 onClick={() => props.onPageChange(index)}
             >
-                <span>{index + 1}</span>
+                <span>{text}</span>
             </div>
         )
     })

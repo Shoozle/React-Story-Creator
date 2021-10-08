@@ -16,6 +16,7 @@ const Title = () => {
 
     return (
         <input 
+            placeholder="Story title"
             value={title} 
             onChange={onChangeHandler} 
             maxLength={maxLength} 

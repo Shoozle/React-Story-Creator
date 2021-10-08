@@ -50,7 +50,6 @@ const Canvas = (props) => {
     }, [pages, pageNum, storyContext])
 
     const startPosition = () => {
-
         setPainting(true)
     }
 
@@ -113,11 +112,16 @@ const Canvas = (props) => {
     }
 
     const nextPage = () => {
+        if (pageNum < pages.length - 1) {
             props.onPageChange((prevPageNum) => prevPageNum + 1)
+        }
     }
 
     const prevPage = () => {
-            props.onPageChange((prevPageNum) => prevPageNum - 1)
+            if (pageNum > 0) {
+                props.onPageChange((prevPageNum) => prevPageNum - 1)
+            }
+            
     }
 
     const changeBrushSize = (e) => {
@@ -145,9 +149,9 @@ const Canvas = (props) => {
 
     const topToolbox = (
         <Toolbox
-            onPrevPage={pageNum > 0 && prevPage}
-            onNewPage={pages.length < maxPages && newPage}
-            onNextPage={pageNum < pages.length - 1 && nextPage}
+            onPrevPage={prevPage}
+            onNewPage={newPage}
+            onNextPage={nextPage}
             placement="bottom"
         />
     )

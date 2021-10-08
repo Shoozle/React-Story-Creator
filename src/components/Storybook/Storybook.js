@@ -18,6 +18,10 @@ const Storybook = (props) => {
     const [secondPage, setSecondPage] = useState({});
     const [hideSecondPage, setHideSecondPage] = useState(false);
 
+    const pagesToShow = () => {
+        return window.innerWidth > 900 ? 2 : 1
+    }
+
     useEffect(() => {
 
         const firstPageCanvas = firstCanvasRef.current;
@@ -33,22 +37,24 @@ const Storybook = (props) => {
         firstImage.src = firstimageSrc
         firstImage.onload = () => firstPageCtx.drawImage(firstImage, 0, 0);
 
-        try {
-            const secondPageCanvas = secondCanvasRef.current;
-            const secondPageCtx = secondPageCanvas.getContext('2d');
-            const secondimageSrc = storyState.pages[index + 1].edits[storyState.pages[index + 1].edits.length - 1];
+        if (pagesToShow() === 2) {
+            try {
+                const secondPageCanvas = secondCanvasRef.current;
+                const secondPageCtx = secondPageCanvas.getContext('2d');
+                const secondimageSrc = storyState.pages[index + 1].edits[storyState.pages[index + 1].edits.length - 1];
 
-            setSecondPage({
-                imageSrc: secondimageSrc,
-                text: storyState.pages[index + 1].text
-            })
+                setSecondPage({
+                    imageSrc: secondimageSrc,
+                    text: storyState.pages[index + 1].text
+                })
 
-            const secondImage = new Image();
-            secondImage.src = secondimageSrc
-            secondImage.onload = () => secondPageCtx.drawImage(secondImage, 0, 0);
-            setHideSecondPage(false);
-        } catch (err) {
-            setHideSecondPage(true);
+                const secondImage = new Image();
+                secondImage.src = secondimageSrc
+                secondImage.onload = () => secondPageCtx.drawImage(secondImage, 0, 0);
+                setHideSecondPage(false);
+            } catch (err) {
+                setHideSecondPage(true);
+            }
         }
     }, [index, storyState.pages, hideSecondPage])
 
@@ -64,20 +70,26 @@ const Storybook = (props) => {
         </div>
     )
 
-    secondPageDisplay = (
-        <div className={classes.page}>
-            <canvas width="400px" height="400px" ref={secondCanvasRef} className={classes.canvas} />
-            <p>{secondPage.text || 'Please enter some text for this page'}</p>
-        </div>
-    )
-
-    const nextPage = () => {
-            setIndex(index + 2)
+    if (window.innerWidth > 900) {
+        secondPageDisplay = (
+            <div className={classes.page}>
+                <canvas width="400px" height="400px" ref={secondCanvasRef} className={classes.canvas} />
+                <p>{secondPage.text || 'Please enter some text for this page'}</p>
+            </div>
+        )
     }
 
     const prevPage = () => {
-            setIndex(index - 2)
+        if ((index >= 2) || (index>=1 && pagesToShow() === 1)) {
+            setIndex(index - pagesToShow())
             setHideSecondPage(false)
+        }
+    }
+
+    const nextPage = () => {
+        if (index < storyState.pages.length - pagesToShow()) {
+            setIndex(index + pagesToShow())
+        }
     }
 
     return (
@@ -90,9 +102,9 @@ const Storybook = (props) => {
                         {!hideSecondPage && secondPageDisplay}
                     </div>
                     <div className={classes.buttonArea}>
-                        {index >= 2 && <Button text="Previous Page" onClick={prevPage}></Button>}
+                        {<Button text="Previous Page" onClick={prevPage}></Button>}
                         <Button text="Close" onClick={props.onClose} />
-                        {index < storyState.pages.length - 2 && <Button text="Next Page" onClick={nextPage}></Button>}
+                        {<Button text="Next Page" onClick={nextPage}></Button>}
                     </div>
                 </div>
             </Modal>

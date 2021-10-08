@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/react-story-creator/static/css/main.fcd1f468.chunk.css",
-    "main.js": "/react-story-creator/static/js/main.b0165138.chunk.js",
-    "main.js.map": "/react-story-creator/static/js/main.b0165138.chunk.js.map",
-    "runtime-main.js": "/react-story-creator/static/js/runtime-main.e3eedcb3.js",
-    "runtime-main.js.map": "/react-story-creator/static/js/runtime-main.e3eedcb3.js.map",
-    "static/js/2.a86a8ca9.chunk.js": "/react-story-creator/static/js/2.a86a8ca9.chunk.js",
-    "static/js/2.a86a8ca9.chunk.js.map": "/react-story-creator/static/js/2.a86a8ca9.chunk.js.map",
-    "index.html": "/react-story-creator/index.html",
-    "static/css/main.fcd1f468.chunk.css.map": "/react-story-creator/static/css/main.fcd1f468.chunk.css.map",
-    "static/js/2.a86a8ca9.chunk.js.LICENSE.txt": "/react-story-creator/static/js/2.a86a8ca9.chunk.js.LICENSE.txt"
+    "main.css": "/React-Story-Creator/static/css/main.fcd1f468.chunk.css",
+    "main.js": "/React-Story-Creator/static/js/main.b0165138.chunk.js",
+    "main.js.map": "/React-Story-Creator/static/js/main.b0165138.chunk.js.map",
+    "runtime-main.js": "/React-Story-Creator/static/js/runtime-main.ab1e7d48.js",
+    "runtime-main.js.map": "/React-Story-Creator/static/js/runtime-main.ab1e7d48.js.map",
+    "static/js/2.a86a8ca9.chunk.js": "/React-Story-Creator/static/js/2.a86a8ca9.chunk.js",
+    "static/js/2.a86a8ca9.chunk.js.map": "/React-Story-Creator/static/js/2.a86a8ca9.chunk.js.map",
+    "index.html": "/React-Story-Creator/index.html",
+    "static/css/main.fcd1f468.chunk.css.map": "/React-Story-Creator/static/css/main.fcd1f468.chunk.css.map",
+    "static/js/2.a86a8ca9.chunk.js.LICENSE.txt": "/React-Story-Creator/static/js/2.a86a8ca9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e3eedcb3.js",
+    "static/js/runtime-main.ab1e7d48.js",
     "static/js/2.a86a8ca9.chunk.js",
     "static/css/main.fcd1f468.chunk.css",
     "static/js/main.b0165138.chunk.js"

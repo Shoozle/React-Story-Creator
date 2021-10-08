@@ -1,0 +1,8 @@
+{
+  "short_name": "Food Order App",
+  "name": "Order some grub",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#000000"
+}

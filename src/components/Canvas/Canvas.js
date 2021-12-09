@@ -153,6 +153,7 @@ const Canvas = (props) => {
             onNewPage={newPage}
             onNextPage={nextPage}
             placement="bottom"
+            pageNum={pageNum}
         />
     )
 

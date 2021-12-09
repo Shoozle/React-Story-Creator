@@ -2,10 +2,15 @@ import classes from './toolbox.module.css';
 import './brush.css';
 import Button from '../../UI/Button/Button';
 import { HexColorPicker } from 'react-colorful';
+import { StoryContext } from '../../../App';
+import { useContext } from 'react';
 
 const Toolbox = (props) => {
 
-    const { onUndo, onRedo, onFill, onPrevPage, onNewPage, onNextPage, brushSize, onBrushSizeChange, color, setColor, onPreview } = props;
+    const { onUndo, onRedo, onFill, onPrevPage, onNewPage, onNextPage, brushSize, onBrushSizeChange, color, setColor, onPreview, pageNum } = props;
+
+    const storyContext = useContext(StoryContext);
+    const { pages } = storyContext.storyState;
 
     let brushControls;
 
@@ -29,9 +34,9 @@ const Toolbox = (props) => {
                 {onRedo && <Button onClick={onRedo} text="Redo" />}
                 {brushControls}
 
-            {onPrevPage && <Button onClick={onPrevPage} text="Previous Page" />}
-            {onNewPage && <Button onClick={onNewPage} text="Add a Page" />}
-            {onNextPage && <Button onClick={onNextPage} text="Next Page" />}
+            {pageNum > 0 && <Button onClick={onPrevPage} text="Previous Page" />}
+            {pages.length < 20 && onNewPage && <Button onClick={onNewPage} text="Add a Page" />}
+            {pages.length > 1 && pageNum < pages.length && <Button onClick={onNextPage} text="Next Page" />}
             {onPreview && <Button onClick={onPreview} text="Preview Story" />}
 
         </div>

@@ -3,6 +3,7 @@ import { useContext, useState } from 'react';
 import { StoryContext } from '../../App';
 import Toolbox from '../Canvas/Toolbox/Toolbox';
 import Storybook from '../Storybook/Storybook';
+import Button, { FlowchartButton } from '../UI/Button/Button';
 
 const Flowchart = (props) => {
 
@@ -13,13 +14,11 @@ const Flowchart = (props) => {
     const pageDivs = pages.map((process, index) => {
         const text = `Page ${index + 1}`
         return (
-            <div
+            <FlowchartButton
                 key={index}
-                className={classes.box}
-                onClick={() => props.onPageChange(index)}
-            >
+                onClick={() => props.onPageChange(index)}>
                 <span>{text}</span>
-            </div>
+            </FlowchartButton>
         )
     })
 

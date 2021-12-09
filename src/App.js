@@ -12,8 +12,6 @@ export const StoryContext = createContext();
 
 function App() {
 
-
-
   const initialStoryState = {
     title: '',
     pages: [

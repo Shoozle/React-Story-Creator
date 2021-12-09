@@ -36,7 +36,7 @@ const Toolbox = (props) => {
 
             {pageNum > 0 && <Button onClick={onPrevPage} text="Previous Page" />}
             {pages.length < 20 && onNewPage && <Button onClick={onNewPage} text="Add a Page" />}
-            {pages.length > 1 && pageNum < pages.length && <Button onClick={onNextPage} text="Next Page" />}
+            {pages.length > 1 && pageNum < pages.length-1 && <Button onClick={onNextPage} text="Next Page" />}
             {onPreview && <Button onClick={onPreview} text="Preview Story" />}
 
         </div>
